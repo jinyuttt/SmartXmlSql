@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.21" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SmartXmlSqlMaper.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SmartXmlSqlMaper.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SmartXmlSqlMaper.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SmartXmlSqlMaper.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

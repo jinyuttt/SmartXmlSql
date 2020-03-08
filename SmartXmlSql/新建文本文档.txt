@@ -1,0 +1,1 @@
+xsd E:\Study\SmartXmlSql\SmartXmlSql\Task.xml /outputdir:E:\Study\SmartXmlSql\SmartXmlSql

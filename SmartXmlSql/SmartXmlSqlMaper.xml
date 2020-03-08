@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SqlMapper>
+  
+  <Statement Id="" DB="" Acess="">
+    "ssss"
+     <Where>
+       <Choose>
+         <When Prepend="And" Dynamic="" IsNotEmpty="">
+           ""
+         </When>
+         <Otherwise>
+           ""
+         </Otherwise>
+       </Choose>
+       <When Prepend="And" IsNotEmpty="" Dynamic="">
+         ""
+      </When>
+       <Switch  Prepend="And">
+        <Case  Dynamic="" IsNotEmpty="">
+          ""
+        </Case>
+        <Default>
+        ""
+        </Default>
+      </Switch>
+       <Default>
+           ""
+       </Default>
+     </Where>
+	   <Choose>
+        <When Prepend="And" Dynamic="" IsNotEmpty="">
+          ""
+        </When>
+        <Otherwise>
+          ""
+        </Otherwise>
+      </Choose>
+	  
+    <When Prepend="And" Dynamic="" IsNotEmpty="">
+      ""
+     </When>
+	  
+    <Switch  Prepend="And">
+        <Case  Dynamic="" IsNotEmpty="">
+         ""
+        </Case>
+        <Default>
+        ""
+        </Default>
+      </Switch>
+	   
+     <Page>
+      ""
+    </Page>
+     <Default>
+     ""
+    </Default>
+    <Set>
+      ""
+    </Set>
+     ""
+  </Statement>
+
+ 
+</SqlMapper>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<SqlMapper
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="SmartXmlSqlMaper.xsd">
+  <Statement Id="">
+ 
+    <Where>
+      <Choose>
+        <Otherwise>
+          ddd
+        </Otherwise>
+        <When>
+          sss
+        </When>
+      </Choose>
+    </Where>
+    <Switch>
+    
+      <Case>
+        sss
+      </Case>
+      <Case>
+        sss
+      </Case>
+      
+    </Switch>
+  </Statement>
+</SqlMapper>
+  
