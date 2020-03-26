@@ -27,6 +27,6 @@ namespace SmartXmlSql
     {
        
         
-        public object Context { get; set; }
+        public object  Context { get; set; }
     }
 }

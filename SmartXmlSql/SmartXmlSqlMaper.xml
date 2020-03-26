@@ -1,65 +1,113 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<SqlMapper>
-  
-  <Statement Id="" DB="" Acess="">
+<?xml version="1.0" encoding="utf-8"?>
+<SqlMapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///E:/Study/SmartXmlSql/SmartXmlSql/my.xsd">
+	<Statement Id="" DB="" Acess="">
     "ssss"
      <Where>
-       <Choose>
-         <When Prepend="And" Dynamic="" IsNotEmpty="">
-           ""
-         </When>
-         <Otherwise>
-           ""
-         </Otherwise>
-       </Choose>
-       <When Prepend="And" IsNotEmpty="" Dynamic="">
+			<Choose>
+				<When Prepend="And" Dynamic="" IsNotEmpty="">
+                       ""
+                </When>
+				<Otherwise>
+                    ""
+                 </Otherwise>
+			</Choose>
+			<When Prepend="And" IsNotEmpty="" Dynamic="">
          ""
       </When>
-       <Switch  Prepend="And">
-        <Case  Dynamic="" IsNotEmpty="">
+			<Switch Prepend="And">
+				<Case Dynamic="" IsNotEmpty="">
           ""
         </Case>
-        <Default>
+				<Default>
         ""
         </Default>
-      </Switch>
-       <Default>
+			</Switch>
+			<Default>
            ""
        </Default>
-     </Where>
-	   <Choose>
-        <When Prepend="And" Dynamic="" IsNotEmpty="">
-          ""
-        </When>
-        <Otherwise>
-          ""
-        </Otherwise>
-      </Choose>
-	  
-    <When Prepend="And" Dynamic="" IsNotEmpty="">
+		</Where>
+		<Choose>
+			<When Prepend="And" Dynamic="" IsNotEmpty="">
+               ""
+             </When>
+			<Otherwise>
+              ""
+              </Otherwise>
+		</Choose>
+		<When Prepend="And" Dynamic="" IsNotEmpty="">
       ""
      </When>
-	  
-    <Switch  Prepend="And">
-        <Case  Dynamic="" IsNotEmpty="">
+		<Switch Prepend="And">
+			<Case Dynamic="" IsNotEmpty="">
          ""
         </Case>
-        <Default>
+			<Default>
         ""
         </Default>
-      </Switch>
-	   
-     <Page>
+		</Switch>
+		<Page>
       ""
-    </Page>
-     <Default>
-     ""
-    </Default>
-    <Set>
+       </Page>
+		<Default>
+          ""
+        </Default>
+		<Set>
       ""
-    </Set>
+        </Set>
      ""
   </Statement>
-
- 
+	<Statement Id="">
+  ""
+  </Statement>
+	<Statement Id="">
+    ""
+    <Set>
+      
+    </Set>
+	</Statement>
+	<Statement Id="">
+    ""
+    <Page>
+      ""
+    </Page>
+	</Statement>
+	<Statement Id="">
+    ""
+    <Choose>
+			<When Prepend="And" Dynamic="" IsNotEmpty="">
+        ""
+      </When>
+			<Otherwise>
+        ""
+      </Otherwise>
+		</Choose>
+		<Page>
+      ""
+    </Page>
+	</Statement>
+	<Statement Id="">
+    ""
+    <Switch Prepend="And">
+			<Case Dynamic="" IsNotEmpty="">
+      ""
+    </Case>
+			<Default>
+      ""
+    </Default>
+		</Switch>
+		<Page>
+      ""
+    </Page>
+	</Statement>
+	<Statement Id="">
+    ""
+    <Switch Prepend="And">
+			<Case Dynamic="" IsNotEmpty="">
+        ""
+      </Case>
+			<Default>
+        ""
+      </Default>
+		</Switch>
+	</Statement>
 </SqlMapper>

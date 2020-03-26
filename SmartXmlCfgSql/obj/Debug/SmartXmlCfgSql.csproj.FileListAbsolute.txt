@@ -4,4 +4,3 @@ E:\Study\SmartXmlSql\SmartXmlCfgSql\bin\Debug\System.Linq.Dynamic.dll
 E:\Study\SmartXmlSql\SmartXmlCfgSql\obj\Debug\SmartXmlCfgSql.csproj.CopyComplete
 E:\Study\SmartXmlSql\SmartXmlCfgSql\obj\Debug\SmartXmlCfgSql.dll
 E:\Study\SmartXmlSql\SmartXmlCfgSql\obj\Debug\SmartXmlCfgSql.pdb
-E:\Study\SmartXmlSql\SmartXmlCfgSql\obj\Debug\SmartXmlCfgSql.csprojAssemblyReference.cache

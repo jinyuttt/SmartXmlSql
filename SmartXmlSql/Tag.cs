@@ -50,7 +50,11 @@ namespace SmartXmlSql
                 {
                     ChildTags.Add(tag);
                 }
-
+                foreach (var tag in this.ChildTags)
+                {
+                    tag.BuildSql();
+                    builder.Append(tag.GetSql());
+                }
 
             }
             else

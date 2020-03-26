@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SmartXmlSql;
+using System;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace ConsoleApp1
 {
@@ -6,12 +9,19 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            SmartSqlBuilder builder = new SmartSqlBuilder();
+            Person person = new Person() { Age = 23, Name = "" };
+           var r= builder.Build("Test.xml", "test",person);
+            Console.WriteLine(r);
         }
 
-       public bool CreateBool(Person person)
+       public bool CreateBool(object  p)
         {
+            Person person = p as Person;
           return  string.IsNullOrEmpty(person.Name);
         }
+
+       
+    
     }
 }

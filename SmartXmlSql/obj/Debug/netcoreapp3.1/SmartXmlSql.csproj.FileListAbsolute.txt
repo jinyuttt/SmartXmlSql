@@ -5,4 +5,3 @@ E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.AssemblyInf
 E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.AssemblyInfo.cs
 E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.dll
 E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.pdb
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.csprojAssemblyReference.cache

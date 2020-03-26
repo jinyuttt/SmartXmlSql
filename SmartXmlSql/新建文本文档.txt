@@ -1,1 +1,5 @@
 xsd E:\Study\SmartXmlSql\SmartXmlSql\Task.xml /outputdir:E:\Study\SmartXmlSql\SmartXmlSql
+
+
+File E:\Study\SmartXmlSql\SmartXmlSql\SmartXmlSqlMaper.xml is not valid.
+	Unable to locate a reference to a supported schema type (DTD, W3C Schema) within this document instance.

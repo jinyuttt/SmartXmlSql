@@ -2,29 +2,17 @@
 
 <SqlMapper
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="SmartXmlSqlMaper.xsd">
-  <Statement Id="">
- 
+ xsi:noNamespaceSchemaLocation="my.xsd">
+
+  <Statement Id="test" >
+    select  * from tsk where id=@id
     <Where>
       <Choose>
-        <Otherwise>
-          ddd
-        </Otherwise>
-        <When>
-          sss
+        <When IsNotEmpty="name">
+          name=@name
         </When>
       </Choose>
     </Where>
-    <Switch>
-    
-      <Case>
-        sss
-      </Case>
-      <Case>
-        sss
-      </Case>
-      
-    </Switch>
   </Statement>
 </SqlMapper>
   

@@ -23,7 +23,14 @@ namespace SmartXmlSql
 {
     public class Statement
     {
+        public Statement()
+        {
+            Tags = new List<ITag>();
+            Child = new List<ITag>();
+        }
         public IList<ITag> Tags { get; set; }
+
+        public IList<ITag> Child { get; set; }
         public string Name { get; set; }
 
         //准备扩展的字段

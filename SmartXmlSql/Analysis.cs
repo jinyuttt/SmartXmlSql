@@ -35,18 +35,33 @@ namespace SmartXmlSql
             //说明是第一级
             statement.Name = node.Name;
             //查找
-            SqlText sql = new SqlText();
-            sql.Sql = node.InnerText;
-            statement.Tags.Add(sql);
+          
             foreach (XmlNode child in node.ChildNodes)
             {
-                AnalysisNode(child, sql, statement);
+                if (child.NodeType == XmlNodeType.Text)
+                {
+                    SqlText sql = new SqlText();
+                    sql.Sql = child.InnerText;
+                    sql.Statement = statement;
+                    statement.Tags.Add(sql);
+                    statement.Child.Add(sql);
+                    continue;
+                }
+                AnalysisNode(child, null, statement);
             }
 
         }
         void AnalysisNode(XmlNode node, ITag condtion, Statement statement)
         {
-
+            if (node.NodeType == XmlNodeType.Text)
+            {
+                SqlText sql = new SqlText();
+                sql.Sql = node.InnerText;
+                sql.Statement = statement;
+                sql.Parent = condtion;
+                statement.Tags.Add(sql);
+                return;
+            }
             //通过名称映射
             var type = Assembly.GetExecutingAssembly().DefinedTypes.Where(X => X.Name == node.Name && typeof(ITag).IsAssignableFrom(X) && !X.IsAbstract).ToList();
             if (type.Count > 0)
@@ -54,32 +69,47 @@ namespace SmartXmlSql
                 ITag tag = Activator.CreateInstance(type[0]) as ITag;
                 tag.Parent = condtion;
                 tag.Sql = node.InnerText;
+                tag.Statement = statement;
                 statement.Tags.Add(tag);
+                if(condtion==null)
+                {
+                    statement.Child.Add(tag);
+                }
 
                 XmlElement element = (XmlElement)node;
                 tag.Prepend = element.GetAttribute("Prepend");
 
                 string str = element.GetAttribute("IsNotEmpty");
-                Dynamic dynamic = new Dynamic
+                if (!string.IsNullOrEmpty(str))
                 {
-                    Parent = tag,
-                    Sql = str,
-                    Property = "IsNotEmpty"
-                };
-                statement.Tags.Add(dynamic);
+                    Dynamic dynamic = new Dynamic
+                    {
+                        Parent = tag,
+                        Sql = str,
+                        Property = "IsNotEmpty",
+                         Statement=statement
+                    };
+                    statement.Tags.Add(dynamic);
+                }
+              
                 string Expression = element.GetAttribute("Dynamic");
-                Dynamic tmp = new Dynamic
+                if (!string.IsNullOrEmpty(Expression))
                 {
-                    Parent = tag,
-                    Sql = Expression,
-                    Property = "Dynamic"
-                };
-                statement.Tags.Add(tmp);
+                    Dynamic tmp = new Dynamic
+                    {
+                        Parent = tag,
+                        Sql = Expression,
+                        Property = "Dynamic",
+                        Statement = statement
+                    };
+                    statement.Tags.Add(tmp);
+                }
+                foreach (XmlNode child in node.ChildNodes)
+                {
+                    AnalysisNode(child, tag, statement);
+                }
             }
-            foreach (XmlNode child in node.ChildNodes)
-            {
-                AnalysisNode(child, condtion, statement);
-            }
+           
         }
     }
 }

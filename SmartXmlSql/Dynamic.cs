@@ -31,11 +31,15 @@ namespace SmartXmlSql
         public static IsNotEmpty<T> CreateBuilder<T>(T obj,string name)
         {
           //  var dynamicBuilder = new TDynamicBuilder<T>();
-             var type = typeof(T);
+             var type = obj.GetType();
             //定义一个名为DynamicCreate的动态方法，返回值typof(T)，参数typeof(IDataRecord)
             var method = new DynamicMethod("DynamicCreate", typeof(bool), new[] { typeof(T) });
             var generator = method.GetILGenerator();//创建一个MSIL生成器，为动态方法生成代码
+            generator.DeclareLocal(type);
             generator.Emit(OpCodes.Ldarg_0);
+            generator.Emit(OpCodes.Isinst, type);
+            generator.Emit(OpCodes.Stloc_0);
+            generator.Emit(OpCodes.Ldloc_0);
             generator.Emit(OpCodes.Call, type.GetProperty(name).GetGetMethod());
             generator.Emit(OpCodes.Call, typeof(string).GetMethod("IsNullOrEmpty"));
             generator.Emit(OpCodes.Ret);//方法结束，返回

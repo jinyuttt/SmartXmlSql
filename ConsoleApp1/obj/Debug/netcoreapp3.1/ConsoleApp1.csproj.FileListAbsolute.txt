@@ -1,11 +1,16 @@
+E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\Test.xml
 E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\ConsoleApp1.exe
 E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\ConsoleApp1.deps.json
 E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\ConsoleApp1.runtimeconfig.json
 E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\ConsoleApp1.runtimeconfig.dev.json
 E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\ConsoleApp1.dll
 E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\ConsoleApp1.pdb
+E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\System.Linq.Dynamic.Core.dll
+E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\SmartXmlSql.dll
+E:\Study\SmartXmlSql\ConsoleApp1\bin\Debug\netcoreapp3.1\SmartXmlSql.pdb
+E:\Study\SmartXmlSql\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.csprojAssemblyReference.cache
 E:\Study\SmartXmlSql\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.AssemblyInfoInputs.cache
 E:\Study\SmartXmlSql\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.AssemblyInfo.cs
+E:\Study\SmartXmlSql\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.csproj.CopyComplete
 E:\Study\SmartXmlSql\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.dll
 E:\Study\SmartXmlSql\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.pdb
-E:\Study\SmartXmlSql\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.csprojAssemblyReference.cache

@@ -1,0 +1,6 @@
+E:\Study\SmartXmlSql\ConsoleApp2\bin\Debug\ConsoleApp2.exe.config
+E:\Study\SmartXmlSql\ConsoleApp2\bin\Debug\ConsoleApp2.exe
+E:\Study\SmartXmlSql\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
+E:\Study\SmartXmlSql\ConsoleApp2\obj\Debug\ConsoleApp2.csprojAssemblyReference.cache
+E:\Study\SmartXmlSql\ConsoleApp2\obj\Debug\ConsoleApp2.exe
+E:\Study\SmartXmlSql\ConsoleApp2\obj\Debug\ConsoleApp2.pdb

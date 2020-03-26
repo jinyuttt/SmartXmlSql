@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<SqlMapper
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="my.xsd">
+
+  <Statement Id="test" >
+    select  * from tsk where id=@id
+    <Where>
+      <Choose>
+        <When IsNotEmpty="Name">
+          name=@name
+        </When>
+      </Choose>
+    </Where>
+    
+  </Statement>
+</SqlMapper>
+  
