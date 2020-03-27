@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uWr7rLBNO94r2Zr5CUZ29uk1d0PEI6OqMl26RmMjrSeW90UxzWtuEmjQbFLwCAzatLtBh8D5RkhkrO9/g5VAPA==",
+  "dgSpecHash": "9i8XXgSRQdug9NsO8k2kAA9EzUGAByEwD57ijeN2cartRVbOxE4VH3NCzmCnwhhFhk11Ayv5MPlgIsk0xxKwXg==",
   "success": true,
-  "projectFilePath": "E:\\Study\\SmartXmlSql(1)\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
+  "projectFilePath": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jinyu\\.nuget\\packages\\system.linq.dynamic.core\\1.0.21\\system.linq.dynamic.core.1.0.21.nupkg.sha512"
   ],

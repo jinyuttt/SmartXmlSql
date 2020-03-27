@@ -32,8 +32,7 @@ namespace SmartXmlSql
         public void AnalysisStatement(XmlNode node, Statement statement)
         {
 
-          
-          
+         
             foreach (XmlNode child in node.ChildNodes)
             {
                 if (child.NodeType == XmlNodeType.Text)

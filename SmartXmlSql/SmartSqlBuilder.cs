@@ -30,7 +30,7 @@ namespace SmartXmlSql
         {
            
         }
-        public string Build(string xml, string name,object obj=null)
+        public SqlDef Build(string xml, string name,object obj=null)
         {
             var statement = Find(xml, name);
             statement.SqlContext = new SqlContext() { Context = obj };
@@ -43,7 +43,8 @@ namespace SmartXmlSql
             {
                 builder.Append(tag.GetSql());
             }
-            return builder.ToString();
+            SqlDef def = new SqlDef() { Acess = statement.Acess, DB = statement.DB, Key = statement.Key, SQL = builder.ToString() };
+            return def
         }
 
         private Statement Find(string xml,string name)

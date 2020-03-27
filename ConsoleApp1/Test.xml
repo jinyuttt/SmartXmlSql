@@ -4,13 +4,10 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="my.xsd">
 
-  <Statement Id="test" >
-    select  * from tsk 
+  <Statement Id="test" key="Entity" key="Array" key="List">
+   
+    insert into kk $p values(@p)
     
-    <Switch>
-      <Case  Dynamic="id=3">sss</Case>
-      
-    </Switch>
     
   </Statement>
 </SqlMapper>

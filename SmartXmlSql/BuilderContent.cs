@@ -4,6 +4,9 @@ using System.Text;
 
 namespace SmartXmlSql
 {
+    /// <summary>
+    /// SQL内容
+    /// </summary>
    public class BuilderContent
     {
         public string Sql { get; set; }
