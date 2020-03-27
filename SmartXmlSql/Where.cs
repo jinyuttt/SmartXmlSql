@@ -42,6 +42,10 @@ namespace SmartXmlSql
             {
                 tmp.Remove(0, 1);
             }
+            if(!string.IsNullOrEmpty(tmp.Trim()))
+            {
+                tmp = " where " + tmp;
+            }
             return tmp;
         }
     }

@@ -10,7 +10,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             SmartSqlBuilder builder = new SmartSqlBuilder();
-            Person person = new Person() { Age = 23, Name = "" };
+            Person person = new Person() { Age = 23, Name = "12" };
            var r= builder.Build("Test.xml", "test",person);
             Console.WriteLine(r);
         }

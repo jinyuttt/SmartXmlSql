@@ -40,9 +40,11 @@ namespace SmartXmlSql
             {
                 if (child.NodeType == XmlNodeType.Text)
                 {
-                    SqlText sql = new SqlText();
-                    sql.Sql = child.InnerText;
-                    sql.Statement = statement;
+                    SqlText sql = new SqlText
+                    {
+                        Sql = child.InnerText,
+                        Statement = statement
+                    };
                     statement.Tags.Add(sql);
                     statement.Child.Add(sql);
                     continue;
@@ -55,10 +57,12 @@ namespace SmartXmlSql
         {
             if (node.NodeType == XmlNodeType.Text)
             {
-                SqlText sql = new SqlText();
-                sql.Sql = node.InnerText;
-                sql.Statement = statement;
-                sql.Parent = condtion;
+                SqlText sql = new SqlText
+                {
+                    Sql = node.InnerText,
+                    Statement = statement,
+                    Parent = condtion
+                };
                 statement.Tags.Add(sql);
                 return;
             }
@@ -68,7 +72,6 @@ namespace SmartXmlSql
             {
                 ITag tag = Activator.CreateInstance(type[0]) as ITag;
                 tag.Parent = condtion;
-                tag.Sql = node.InnerText;
                 tag.Statement = statement;
                 statement.Tags.Add(tag);
                 if(condtion==null)

@@ -33,7 +33,7 @@ namespace SmartXmlSql
         ///  验证属性是否存在，如果不存在则抛出异常 : TagRequiredFailException
         /// </summary>
         public bool Required { get; set; }
-        public IList<ITag> ChildTags { get; set; }
+        public List<ITag> ChildTags { get; set; }
         public ITag Parent { get; set; }
         public Statement Statement { get; set; }
         public string Sql { get ; set ; }

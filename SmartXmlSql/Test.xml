@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="my.xsd">
 
   <Statement Id="test" >
-    select  * from tsk where id=@id
+    select  * from tsk 
     <Where>
       <Choose>
         <When IsNotEmpty="name">

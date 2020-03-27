@@ -17,7 +17,7 @@
 
 
 
-using System.Linq.Dynamic;
+
 using System.Linq.Dynamic.Core;
 using System.Reflection.Emit;
 
@@ -28,10 +28,10 @@ namespace SmartXmlSql
     {
         private IsNotEmpty<object> empty;
         private System.Linq.Expressions.LambdaExpression expression = null;
-        public static IsNotEmpty<T> CreateBuilder<T>(T obj,string name)
+        public static IsNotEmpty<T> CreateBuilder<T>(T obj, string name)
         {
-          //  var dynamicBuilder = new TDynamicBuilder<T>();
-             var type = obj.GetType();
+            //  var dynamicBuilder = new TDynamicBuilder<T>();
+            var type = obj.GetType();
             //定义一个名为DynamicCreate的动态方法，返回值typof(T)，参数typeof(IDataRecord)
             var method = new DynamicMethod("DynamicCreate", typeof(bool), new[] { typeof(T) });
             var generator = method.GetILGenerator();//创建一个MSIL生成器，为动态方法生成代码
@@ -54,38 +54,42 @@ namespace SmartXmlSql
         {
             if (Property == "IsNotEmpty")
             {
-                if(empty==null)
+                if (empty == null)
                 {
-                    empty = CreateBuilder(this.Statement.SqlContext.Context,this.Sql);
+                    empty = CreateBuilder(this.Statement.SqlContext.Context, this.Sql);
                 }
-                empty.Invoke(this.Statement.SqlContext.Context);
+
             }
-            else if(expression==null)
+            else if (expression == null)
             {
                 object obj = Statement.SqlContext.Context;
                 expression = DynamicExpressionParser.ParseLambda(obj.GetType(), typeof(bool), this.Sql);
             }
-             
+
         }
-        public override string GetSql()
+
+        /// <summary>
+        /// 条件返回
+        /// </summary>
+        /// <returns></returns>
+        public bool Condtion()
         {
             bool r = false;
-            if(empty!=null)
+            if (empty != null)
             {
-                r = empty.Invoke(Statement.SqlContext.Context);
-              
+                bool tmp = empty.Invoke(Statement.SqlContext.Context);
+                r = !tmp;//
+
             }
             else
             {
-                 r = (bool)expression.Compile().DynamicInvoke(Statement.SqlContext.Context);
-                
+                r = (bool)expression.Compile().DynamicInvoke(Statement.SqlContext.Context);
+
             }
-            if(r)
-            {
-                //本节点SQL是判断条件，返回父节点的SQL
-                return this.Parent.Sql;
-            }
-            return "";
+            return r;
         }
+
+
     }
 }
+

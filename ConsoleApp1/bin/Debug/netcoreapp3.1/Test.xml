@@ -5,14 +5,12 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="my.xsd">
 
   <Statement Id="test" >
-    select  * from tsk where id=@id
-    <Where>
-      <Choose>
-        <When IsNotEmpty="Name">
-          name=@name
-        </When>
-      </Choose>
-    </Where>
+    select  * from tsk 
+    
+    <Switch>
+      <Case  Dynamic="id=3">sss</Case>
+      
+    </Switch>
     
   </Statement>
 </SqlMapper>
