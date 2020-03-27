@@ -6,12 +6,12 @@
 			<Choose>
 				<When Prepend="And" Dynamic="" IsNotEmpty="">
                        ""
-                </When>
+        </When>
 				<Otherwise>
                     ""
-                 </Otherwise>
+        </Otherwise>
 			</Choose>
-			<When Prepend="And" IsNotEmpty="" Dynamic="">
+			<When Prepend="And" IsNotEmpty="name" Dynamic="id==3">
          ""
       </When>
 			<Switch Prepend="And">
@@ -19,7 +19,7 @@
           ""
         </Case>
 				<Default>
-        ""
+           ""
         </Default>
 			</Switch>
 			<Default>
@@ -56,58 +56,5 @@
         </Set>
      ""
   </Statement>
-	<Statement Id="">
-  ""
-  </Statement>
-	<Statement Id="">
-    ""
-    <Set>
-      
-    </Set>
-	</Statement>
-	<Statement Id="">
-    ""
-    <Page>
-      ""
-    </Page>
-	</Statement>
-	<Statement Id="">
-    ""
-    <Choose>
-			<When Prepend="And" Dynamic="" IsNotEmpty="">
-        ""
-      </When>
-			<Otherwise>
-        ""
-      </Otherwise>
-		</Choose>
-		<Page>
-      ""
-    </Page>
-	</Statement>
-	<Statement Id="">
-    ""
-    <Switch Prepend="And">
-			<Case Dynamic="" IsNotEmpty="">
-      ""
-    </Case>
-			<Default>
-      ""
-    </Default>
-		</Switch>
-		<Page>
-      ""
-    </Page>
-	</Statement>
-	<Statement Id="">
-    ""
-    <Switch Prepend="And">
-			<Case Dynamic="" IsNotEmpty="">
-        ""
-      </Case>
-			<Default>
-        ""
-      </Default>
-		</Switch>
-	</Statement>
+	
 </SqlMapper>

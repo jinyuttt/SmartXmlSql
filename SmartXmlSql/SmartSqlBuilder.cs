@@ -30,7 +30,7 @@ namespace SmartXmlSql
         {
            
         }
-        public string Build(string xml, string name,object obj)
+        public string Build(string xml, string name,object obj=null)
         {
             var statement = Find(xml, name);
             statement.SqlContext = new SqlContext() { Context = obj };
@@ -46,7 +46,7 @@ namespace SmartXmlSql
             return builder.ToString();
         }
 
-        public Statement Find(string xml,string name)
+        private Statement Find(string xml,string name)
         {
             XmlDocument document = new XmlDocument();
             document.Load(xml);
@@ -64,15 +64,7 @@ namespace SmartXmlSql
                 analysis.AnalysisStatement(targetNode, statement);
                 return statement;
             }
-            //XmlElement element = (XmlElement)document.DocumentElement;
-            //var nodelst= element.GetElementsByTagName(name);
-            // if(nodelst.Count>0)
-            // {
-            //     Analysis analysis = new Analysis();
-            //     Statement statement = new Statement();
-            //     analysis.AnalysisStatement(nodelst[0], statement);
-            // }
-
+          
         }
     }
 }

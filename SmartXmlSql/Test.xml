@@ -2,15 +2,15 @@
 
 <SqlMapper
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="my.xsd">
+ xsi:noNamespaceSchemaLocation="test.xsd">
 
   <Statement Id="test" >
     select  * from tsk 
     <Where>
       <Choose>
-        <When IsNotEmpty="name">
+        <When IsNotEmpty="name" Dynamic="id=3" Prepend="And">
           name=@name
-        </When>
+        </When>ssss
       </Choose>
     </Where>
   </Statement>

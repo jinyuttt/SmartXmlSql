@@ -32,9 +32,7 @@ namespace SmartXmlSql
         public void AnalysisStatement(XmlNode node, Statement statement)
         {
 
-            //说明是第一级
-            statement.Name = node.Name;
-            //查找
+          
           
             foreach (XmlNode child in node.ChildNodes)
             {

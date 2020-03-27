@@ -9,17 +9,16 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            SmartSqlBuilder builder = new SmartSqlBuilder();
             Person person = new Person() { Age = 23, Name = "12" };
+            TestCls testCls = new TestCls();
+            testCls.Test(person);
+            SmartSqlBuilder builder = new SmartSqlBuilder();
+           
            var r= builder.Build("Test.xml", "test",person);
             Console.WriteLine(r);
         }
 
-       public bool CreateBool(object  p)
-        {
-            Person person = p as Person;
-          return  string.IsNullOrEmpty(person.Name);
-        }
+       
 
        
     

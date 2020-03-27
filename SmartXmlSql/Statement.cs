@@ -31,7 +31,12 @@ namespace SmartXmlSql
         public IList<ITag> Tags { get; set; }
 
         public IList<ITag> Child { get; set; }
-        public string Name { get; set; }
+   
+        public string Key { get; set; }
+
+        public string DB { get; set; }
+
+        public AcessType Acess { get; set; }
 
         //准备扩展的字段
         public  SqlContext SqlContext { get; set; }
