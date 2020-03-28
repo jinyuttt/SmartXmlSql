@@ -27,13 +27,7 @@ namespace SmartXmlSql
             }
             //SQL参数提取
            
-            List<string> sqlPi = new List<string>();
-            Regex regex = new Regex(@"(?<!@)[^\w$#@]@(?!@)[\w$#@]+");
-            MatchCollection matchs = regex.Matches(sql.SQL);
-            foreach (Match match in matchs)
-            {
-                sqlPi.Add(match.Groups[0].Value.Substring(match.Groups[0].Value.IndexOf("@")));
-            }
+            
             Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
             if (args.Length==1&&args[0].GetType().IsClass&& args[0].GetType()!=typeof(string))
             {
@@ -58,6 +52,7 @@ namespace SmartXmlSql
                 }
             }
             //
+            var sqlPi = SearchParam(sql.SQL);
             Dictionary<string, SqlValue> dicParam = new Dictionary<string, SqlValue>();
             if(sql.Key=="Entity"&&sqlPi.Count==1)
             {
@@ -109,6 +104,32 @@ namespace SmartXmlSql
             }
             BuilderContent content = new BuilderContent() { Sql = sql.SQL, SqlParam= dicParam };
             return content;
+        }
+         
+
+        private List<string>  SearchParam(string sql)
+        {
+            List<string> sqlPi = new List<string>();
+            Regex regex = new Regex(@"(?<!@)[^\w$#@]@(?!@)[\w$#@]+");
+            MatchCollection matchs = regex.Matches(sql);
+            foreach (Match match in matchs)
+            {
+                sqlPi.Add(match.Groups[0].Value.Substring(match.Groups[0].Value.IndexOf("@")));
+            }
+            return sqlPi;
+        }
+
+
+        private List<string> SearchReplace(string sql)
+        {
+            List<string> sqlPi = new List<string>();
+            Regex regex = new Regex(@"(?<!)[^\w$#@]@(?!@)[\w$#@]+");
+            MatchCollection matchs = regex.Matches(sql);
+            foreach (Match match in matchs)
+            {
+                sqlPi.Add(match.Groups[0].Value.Substring(match.Groups[0].Value.IndexOf("@")));
+            }
+            return sqlPi;
         }
     }
 }

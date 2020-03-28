@@ -62,11 +62,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
+      "projectUniqueName": "E:\\Study\\SmartXmlSql(1)\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
       "projectName": "SmartXmlSql",
-      "projectPath": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
+      "projectPath": "E:\\Study\\SmartXmlSql(1)\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
       "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-      "outputPath": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\obj\\",
+      "outputPath": "E:\\Study\\SmartXmlSql(1)\\SmartXmlSql\\SmartXmlSql\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -80,7 +80,7 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "d:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
-        "d:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+        "d:\\Program Files\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
