@@ -32,7 +32,7 @@ namespace SmartXmlSql
         }
         public SqlDef Build(string xml, string name,object obj=null)
         {
-            var statement = Find(xml, name);
+            var statement = Find(xml+".xml", name);
             statement.SqlContext = new SqlContext() { Context = obj };
             foreach (var tag in statement.Child)
             {
@@ -44,7 +44,7 @@ namespace SmartXmlSql
                 builder.Append(tag.GetSql());
             }
             SqlDef def = new SqlDef() { Acess = statement.Acess, DB = statement.DB, Key = statement.Key, SQL = builder.ToString() };
-            return def
+            return def;
         }
 
         private Statement Find(string xml,string name)
@@ -52,7 +52,7 @@ namespace SmartXmlSql
             XmlDocument document = new XmlDocument();
             document.Load(xml);
             string targetParm = string.Format("SqlMapper/Statement[@Id='{0}']", name);//生成目标获取节点的参数
-          var targetNode= document.SelectSingleNode(targetParm);
+           var targetNode= document.SelectSingleNode(targetParm);
             if (targetNode == null)
             {
                 Console.WriteLine("can not find");

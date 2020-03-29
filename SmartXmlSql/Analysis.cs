@@ -31,8 +31,20 @@ namespace SmartXmlSql
     {
         public void AnalysisStatement(XmlNode node, Statement statement)
         {
+            XmlElement element = (XmlElement)node;
+            statement.Key = element.GetAttribute("Key");
+            statement.DB = element.GetAttribute("DB");
+           
+                string str=element.GetAttribute("Acess");
+            if (!string.IsNullOrEmpty(str.Trim()))
+            {
+                AcessType acess;
+                if (Enum.TryParse<AcessType>(str, out acess))
+                {
+                    statement.Acess = acess;
+                }
+            }
 
-         
             foreach (XmlNode child in node.ChildNodes)
             {
                 if (child.NodeType == XmlNodeType.Text)

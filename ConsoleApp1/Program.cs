@@ -1,5 +1,6 @@
 ﻿using SmartXmlSql;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -9,13 +10,18 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+              //TestCls testCls = new TestCls();
+            
             Person person = new Person() { Age = 23, Name = "12" };
             TestCls testCls = new TestCls();
-            testCls.Test(person);
+            //var lst = testCls.SearchValues(@"(<$KK>,<$FF>)");
+            testCls.Test(new List<Person>() {  person});
             SmartSqlBuilder builder = new SmartSqlBuilder();
+
+            //var r = builder.Build("Test.xml", "test", person);
+            //Console.WriteLine(r);
+
            
-           var r= builder.Build("Test.xml", "test",person);
-            Console.WriteLine(r);
         }
 
        

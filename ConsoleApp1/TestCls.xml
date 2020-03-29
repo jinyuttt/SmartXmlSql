@@ -4,14 +4,9 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="my.xsd">
 
-  <Statement Id="test" >
-    select  * from tsk 
-    
-    <Switch>
-      <Case  Dynamic="id=3">sss</Case>
-      
-    </Switch>
-    
+  <Statement Id="Test" Key="Batch">
+
+    insert into kk (&lt;$p&gt;) values(@p)
   </Statement>
 </SqlMapper>
   
