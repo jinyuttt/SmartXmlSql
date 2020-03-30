@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageProjectUrl>https://github.com/jinyuttt/SmartXmlSql.git</PackageProjectUrl>
+    <Description>SQL的xml配置</Description>
   </PropertyGroup>
 
   <ItemGroup>
