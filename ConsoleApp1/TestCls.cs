@@ -15,16 +15,6 @@ namespace ConsoleApp1
 
         }
 
-       public  List<string> SearchValues(string sql)
-        {
-            List<string> sqlPi = new List<string>();
-            Regex regex = new Regex(@"<([^<>]*)>");//小括号
-            MatchCollection matchs = regex.Matches(sql);
-            foreach (Match match in matchs)
-            {
-                sqlPi.Add(match.Groups[0].Value);
-            }
-            return sqlPi;
-        }
+      
     }
 }
