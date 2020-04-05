@@ -25,9 +25,9 @@ namespace SmartXmlSql
 
         ITag Parent { get; set; }
 
-        public string Sql { get; set; }
+         string Sql { get; set; }
 
-        public string Prepend { get; set; }
+         string Prepend { get; set; }
 
      
         void BuildSql();

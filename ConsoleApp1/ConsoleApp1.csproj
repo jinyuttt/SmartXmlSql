@@ -10,6 +10,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="SmartXmlSqlMaper.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SmartXmlSqlMaper.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SmartXmlSqlMaper.xsd">
+      <LastGenOutput>SmartXmlSqlMaper.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
     <None Update="TestCls.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

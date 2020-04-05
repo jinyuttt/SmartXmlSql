@@ -1,13 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl>https://github.com/jinyuttt/SmartXmlSql.git</PackageProjectUrl>
-    <Description>SQL的xml配置</Description>
+    <Description>通过xml文件生成SQL</Description>
+    <Version>1.1.0</Version>
+    <PackageIcon>2019Hikari.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.21" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.23" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +25,10 @@
     <None Update="SmartXmlSqlMaper.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SmartXmlSqlMaper.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="F:\BaiduNetdiskDownload\2019Hikari.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 

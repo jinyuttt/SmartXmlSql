@@ -2,11 +2,19 @@
 
 <SqlMapper
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:noNamespaceSchemaLocation="my.xsd">
+ xsi:noNamespaceSchemaLocation="SmartXmlSqlMaper.xsd">
 
-  <Statement Id="Test" Key="Batch">
-
-    insert into kk (&lt;$p&gt;) values(@p)
+  <Statement  Id="ss" Key="gg">
+    <Where>
+     <Switch Prepend="And">
+       <Case IsNotEmpty="">
+         
+       </Case>
+     </Switch>
+    </Where>
+   <Set >
+      
+   </Set>
   </Statement>
 </SqlMapper>
   

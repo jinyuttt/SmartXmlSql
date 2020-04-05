@@ -38,7 +38,7 @@ namespace SmartXmlSql
             {
                 tmp.Remove(0, 2);
             }
-            if (tmp.StartsWith(','))
+            if (tmp.StartsWith(","))
             {
                 tmp.Remove(0, 1);
             }

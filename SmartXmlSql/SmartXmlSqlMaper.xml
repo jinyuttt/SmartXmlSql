@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SqlMapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///E:/Study/SmartXmlSql/SmartXmlSql/my.xsd">
+<SqlMapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///E:/Study/SmartXmlSql/SmartXmlSql/SmartXmlSqlMaper.xsd">
 	<Statement Id="" DB="" Acess="">
-    "ssss"
+   
      <Where>
 			<Choose>
 				<When Prepend="And" Dynamic="" IsNotEmpty="">
                        ""
         </When>
-				<Otherwise>
-                    ""
+				<Otherwise>            
         </Otherwise>
 			</Choose>
-			<When Prepend="And" IsNotEmpty="name" Dynamic="id==3">
+			<When Prepend="And" IsNotEmpty="" Dynamic="">
          ""
       </When>
 			<Switch Prepend="And">
@@ -45,16 +44,11 @@
         ""
         </Default>
 		</Switch>
-		<Page>
-      ""
-       </Page>
 		<Default>
-          ""
+       
         </Default>
 		<Set>
-      ""
+    
         </Set>
-     ""
-  </Statement>
-	
+	</Statement>
 </SqlMapper>
