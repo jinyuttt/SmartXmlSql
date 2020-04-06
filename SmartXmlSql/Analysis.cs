@@ -62,7 +62,7 @@ namespace SmartXmlSql
             }
 
         }
-        void AnalysisNode(XmlNode node, ITag condtion, Statement statement)
+       private void AnalysisNode(XmlNode node, ITag condtion, Statement statement)
         {
             if (node.NodeType == XmlNodeType.Text)
             {

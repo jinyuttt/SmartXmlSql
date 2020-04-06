@@ -18,24 +18,45 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Collections.Concurrent;
 
 namespace SmartXmlSql
 {
     public class SmartSqlBuilder : IDisposable
     {
-        public void Dispose()
-        {
-           
-        }
+        private static ConcurrentDictionary<string, StatementItem> dicCache = new ConcurrentDictionary<string, StatementItem>();
+        /// <summary>
+        /// 生成SQL信息
+        /// </summary>
+        /// <param name="xml">文件名称</param>
+        /// <param name="name">节点名称</param>
+        /// <param name="obj">实体对象</param>
+        /// <returns></returns>
         public SqlDef Build(string xml, string name,object obj=null)
         {
-            var statement = Find(xml+".xml", name);
+            StatementItem item = null;
+            Statement statement = null;
+            if(dicCache.TryGetValue(xml,out item))
+            {
+                statement= item.GetStatement(name);
+            }
+            if (statement == null)
+            {
+                statement = Find(xml + ".xml", name);
+                if(item==null)
+                {
+                    item = new StatementItem();
+                    dicCache[xml] = item;
+                }
+                item.Set(name, statement);
+                
+            }
             statement.SqlContext = new SqlContext() { Context = obj };
             foreach (var tag in statement.Child)
             {
+                //处理所有子节点
                 tag.BuildSql();
             }
             StringBuilder builder = new StringBuilder();
@@ -47,6 +68,12 @@ namespace SmartXmlSql
             return def;
         }
 
+        /// <summary>
+        /// 获取配置信息
+        /// </summary>
+        /// <param name="xml">文件</param>
+        /// <param name="name">节点</param>
+        /// <returns></returns>
         private Statement Find(string xml,string name)
         {
             XmlDocument document = new XmlDocument();
@@ -66,6 +93,10 @@ namespace SmartXmlSql
                 return statement;
             }
           
+        }
+        public void Dispose()
+        {
+
         }
     }
 }

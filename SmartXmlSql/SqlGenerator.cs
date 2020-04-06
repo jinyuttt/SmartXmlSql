@@ -14,14 +14,20 @@ namespace SmartXmlSql
     /// </summary>
     public  class SqlGenerator
     {
-        SmartSqlBuilder smartSql = new SmartSqlBuilder();
+        readonly SmartSqlBuilder smartSql = new SmartSqlBuilder();
+        private static Lazy<SqlGenerator> generator = new Lazy<SqlGenerator>();
 
+        public static SqlGenerator Instance
+        {
+            get { return generator.Value; }
+        }
+      
         /// <summary>
         /// SQL生成
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public BuilderContent builder(params object[] args)
+        public BuilderContent Builder(params object[] args)
         {
             StackTrace stackTrace = new StackTrace();
             var mth = stackTrace.GetFrame(1).GetMethod();

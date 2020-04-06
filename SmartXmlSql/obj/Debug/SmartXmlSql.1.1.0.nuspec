@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SmartXmlSql</id>
+    <version>1.1.0</version>
+    <authors>SmartXmlSql</authors>
+    <owners>SmartXmlSql</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <icon>2019Hikari.png</icon>
+    <projectUrl>https://github.com/jinyuttt/SmartXmlSql.git</projectUrl>
+    <description>通过xml文件生成SQL</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Linq.Dynamic.Core" version="1.0.23" exclude="Build,Analyzers" />
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.7.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="E:\Study\SmartXmlSql\SmartXmlSql\bin\Debug\netstandard2.0\SmartXmlSql.dll" target="lib\netstandard2.0\SmartXmlSql.dll" />
+    <file src="F:\BaiduNetdiskDownload\2019Hikari.png" target="2019Hikari.png" />
+  </files>
+</package>
