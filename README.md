@@ -1,6 +1,15 @@
 SmartXmlSql
 ==========
-XML配置SQl
+XML配置SQL
+
+--------------------------
+使用  
+SqlGenerator.Instance.Builder()；传入参数值
+
+-----------------------------
+SmartXmlSqlMaper.xsd 提示xml关键字
+
+
 ### 关键字说明
 
 | 关键字    | 含义            | 使用                                                         | 说明                                                         | 样例                                                    |

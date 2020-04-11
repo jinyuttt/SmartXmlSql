@@ -38,20 +38,27 @@ namespace SmartXmlSql
         {
             StatementItem item = null;
             Statement statement = null;
-            if(dicCache.TryGetValue(xml,out item))
+            try
             {
-                statement= item.GetStatement(name);
-            }
-            if (statement == null)
-            {
-                statement = Find(xml + ".xml", name);
-                if(item==null)
+                if (dicCache.TryGetValue(xml, out item))
                 {
-                    item = new StatementItem();
-                    dicCache[xml] = item;
+                    statement = item.GetStatement(name);
                 }
-                item.Set(name, statement);
-                
+                if (statement == null)
+                {
+                    statement = Find(xml + ".xml", name);
+                    if (item == null)
+                    {
+                        item = new StatementItem();
+                        dicCache[xml] = item;
+                    }
+                    item.Set(name, statement);
+
+                }
+            }
+            catch
+            {
+               //缓存不支持不处理
             }
             statement.SqlContext = new SqlContext() { Context = obj };
             foreach (var tag in statement.Child)

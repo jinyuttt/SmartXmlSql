@@ -23,6 +23,9 @@ using System.Text;
 
 namespace SmartXmlSql
 {
+    /// <summary>
+    /// 解析的SQL
+    /// </summary>
    public class SqlDef
     {
         public string SQL { get; set; }

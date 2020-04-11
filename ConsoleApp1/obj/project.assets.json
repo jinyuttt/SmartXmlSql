@@ -87,7 +87,7 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
-      "SmartXmlSql/1.1.0": {
+      "SmartXmlSql/1.2.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -291,7 +291,7 @@
         "version.txt"
       ]
     },
-    "SmartXmlSql/1.1.0": {
+    "SmartXmlSql/1.2.0": {
       "type": "project",
       "path": "../SmartXmlSql/SmartXmlSql.csproj",
       "msbuildProject": "../SmartXmlSql/SmartXmlSql.csproj"
@@ -299,7 +299,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v5.0": [
-      "SmartXmlSql >= 1.1.0"
+      "SmartXmlSql >= 1.2.0"
     ]
   },
   "packageFolders": {

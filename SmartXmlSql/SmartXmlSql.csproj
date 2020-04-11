@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl>https://github.com/jinyuttt/SmartXmlSql.git</PackageProjectUrl>
     <Description>通过xml文件生成SQL</Description>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <PackageIcon>2019Hikari.png</PackageIcon>
   </PropertyGroup>
 
