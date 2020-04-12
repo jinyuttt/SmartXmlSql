@@ -4,8 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl>https://github.com/jinyuttt/SmartXmlSql.git</PackageProjectUrl>
     <Description>通过xml文件生成SQL</Description>
-    <Version>1.2.0</Version>
+    <Version>1.2.2</Version>
     <PackageIcon>2019Hikari.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>jinyu成都</Authors>
+    <Company>SmartXmlSql</Company>
+    <Copyright>jinyu</Copyright>
+    <PackageReleaseNotes>增加缓存，保留已经解析的SQL</PackageReleaseNotes>
+    <Title>SQL配置解析</Title>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +36,12 @@
     <None Include="F:\BaiduNetdiskDownload\2019Hikari.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    
     </None>
+    <Content Include="SmartXmlSqlMaper.xsd">
+     
+    </Content>
+   
   </ItemGroup>
 
 </Project>
