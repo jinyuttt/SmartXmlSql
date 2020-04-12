@@ -10,8 +10,8 @@ namespace ConsoleApp1
     {
         public void Test<T>(T oj)
         {
-            SqlGenerator generator = new SqlGenerator();
-          var content=  generator.Builder(oj);
+            SqlGenerator.Instance.Builder(oj);
+       
 
         }
 

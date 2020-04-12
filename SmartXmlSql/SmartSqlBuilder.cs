@@ -21,6 +21,7 @@ using System;
 using System.Text;
 using System.Xml;
 using System.Collections.Concurrent;
+using System.IO;
 
 namespace SmartXmlSql
 {
@@ -31,10 +32,10 @@ namespace SmartXmlSql
         /// 生成SQL信息
         /// </summary>
         /// <param name="xml">文件名称</param>
-        /// <param name="name">节点名称</param>
+        /// <param name="node">节点名称</param>
         /// <param name="obj">实体对象</param>
         /// <returns></returns>
-        public SqlDef Build(string xml, string name,object obj=null)
+        public SqlDef Build(string xml, string node, object obj = null)
         {
             StatementItem item = null;
             Statement statement = null;
@@ -42,24 +43,27 @@ namespace SmartXmlSql
             {
                 if (dicCache.TryGetValue(xml, out item))
                 {
-                    statement = item.GetStatement(name);
+                    statement = item.GetStatement(node);
                 }
                 if (statement == null)
                 {
-                    statement = Find(xml + ".xml", name);
+                    string file = Path.Combine(SmartXmlSqlCfg.XmlDir, xml) + ".xml";
+                    statement = Find(file, node);
                     if (item == null)
                     {
                         item = new StatementItem();
                         dicCache[xml] = item;
                     }
-                    item.Set(name, statement);
+                    item.Set(node, statement);
 
                 }
             }
-            catch
+            catch(StatementException ex)
             {
-               //缓存不支持不处理
+                //缓存不支持不处理
+                throw ex;
             }
+
             statement.SqlContext = new SqlContext() { Context = obj };
             foreach (var tag in statement.Child)
             {
@@ -81,16 +85,19 @@ namespace SmartXmlSql
         /// <param name="xml">文件</param>
         /// <param name="name">节点</param>
         /// <returns></returns>
-        private Statement Find(string xml,string name)
+        private Statement Find(string xml, string name)
         {
+            if(!File.Exists(xml))
+            {
+                throw new StatementException("未知", xml, "没有找到该xml文件");
+            }
             XmlDocument document = new XmlDocument();
             document.Load(xml);
             string targetParm = string.Format("SqlMapper/Statement[@Id='{0}']", name);//生成目标获取节点的参数
-           var targetNode= document.SelectSingleNode(targetParm);
+            var targetNode = document.SelectSingleNode(targetParm);
             if (targetNode == null)
             {
-                Console.WriteLine("can not find");
-                return null;
+                throw new StatementException("未知", name, "没有找到该节点");
             }
             else
             {
@@ -99,11 +106,11 @@ namespace SmartXmlSql
                 analysis.AnalysisStatement(targetNode, statement);
                 return statement;
             }
-          
+
         }
         public void Dispose()
         {
-
+            dicCache.Clear();
         }
     }
 }

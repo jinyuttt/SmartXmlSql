@@ -13,10 +13,12 @@ namespace ConsoleApp1
             //TestCls testCls = new TestCls();
             
              Person person = new Person() { Age = 23, Name = "12" };
-            TestCls testCls = new TestCls();
+              TestCls testCls = new TestCls();
             //var lst = testCls.SearchValues(@"(<$KK>,<$FF>)");
-            testCls.Test(new List<Person>() {  person});
-            SmartSqlBuilder builder = new SmartSqlBuilder();
+            var lst = new List<Person>();
+            lst.Add(person);
+            testCls.Test(lst);
+          //  SmartSqlBuilder builder = new SmartSqlBuilder();
 
             //var r = builder.Build("Test.xml", "test", person);
             //Console.WriteLine(r);

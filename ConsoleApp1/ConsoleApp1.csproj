@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SmartXmlSql" Version="1.2.1" />
+    <ProjectReference Include="..\SmartXmlSql\SmartXmlSql.csproj" />
   </ItemGroup>
 
   <ItemGroup>

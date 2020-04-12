@@ -1,9 +1,0 @@
-E:\Study\SmartXmlSql\SmartXmlSql\bin\Debug\netstandard2.0\SmartXmlSql.deps.json
-E:\Study\SmartXmlSql\SmartXmlSql\bin\Debug\netstandard2.0\SmartXmlSql.dll
-E:\Study\SmartXmlSql\SmartXmlSql\bin\Debug\netstandard2.0\SmartXmlSql.pdb
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netstandard2.0\SmartXmlSql.csprojAssemblyReference.cache
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netstandard2.0\SmartXmlSql.AssemblyInfoInputs.cache
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netstandard2.0\SmartXmlSql.AssemblyInfo.cs
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netstandard2.0\SmartXmlSql.csproj.CoreCompileInputs.cache
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netstandard2.0\SmartXmlSql.dll
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netstandard2.0\SmartXmlSql.pdb

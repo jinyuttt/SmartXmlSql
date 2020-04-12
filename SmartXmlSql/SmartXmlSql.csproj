@@ -4,13 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl>https://github.com/jinyuttt/SmartXmlSql.git</PackageProjectUrl>
     <Description>通过xml文件生成SQL</Description>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <PackageIcon>2019Hikari.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>jinyu成都</Authors>
     <Company>SmartXmlSql</Company>
     <Copyright>jinyu</Copyright>
-    <PackageReleaseNotes>增加缓存，保留已经解析的SQL</PackageReleaseNotes>
+    <PackageReleaseNotes>增加异常xml异常抛出</PackageReleaseNotes>
     <Title>SQL配置解析</Title>
   </PropertyGroup>
 
