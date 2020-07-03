@@ -1,29 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Study\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj": {}
+    "E:\\study\\SmartXmlSql\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj": {}
   },
   "projects": {
-    "E:\\Study\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj": {
+    "E:\\study\\SmartXmlSql\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Study\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectUniqueName": "E:\\study\\SmartXmlSql\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj",
         "projectName": "ConsoleApp1",
-        "projectPath": "E:\\Study\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj",
-        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\SmartXmlSql\\ConsoleApp1\\obj\\",
+        "projectPath": "E:\\study\\SmartXmlSql\\SmartXmlSql\\ConsoleApp1\\ConsoleApp1.csproj",
+        "packagesPath": "D:\\Temp\\Nuget\\packages",
+        "outputPath": "E:\\study\\SmartXmlSql\\SmartXmlSql\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\jinyu\\AppData\\Local\\Esri\\NuGet": {},
+          "D:\\Temp\\Nuget\\packages": {},
           "d:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
           "d:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
@@ -31,8 +34,8 @@
         "frameworks": {
           "net5.0": {
             "projectReferences": {
-              "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj": {
-                "projectPath": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj"
+              "E:\\study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj": {
+                "projectPath": "E:\\study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj"
               }
             }
           }
@@ -60,30 +63,33 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.2.20176.6\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.4.20258.7\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj": {
+    "E:\\study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj": {
       "version": "1.2.3",
       "restore": {
-        "projectUniqueName": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
+        "projectUniqueName": "E:\\study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
         "projectName": "SmartXmlSql",
-        "projectPath": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
-        "packagesPath": "C:\\Users\\jinyu\\.nuget\\packages\\",
-        "outputPath": "E:\\Study\\SmartXmlSql\\SmartXmlSql\\obj\\",
+        "projectPath": "E:\\study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql.csproj",
+        "packagesPath": "D:\\Temp\\Nuget\\packages",
+        "outputPath": "E:\\study\\SmartXmlSql\\SmartXmlSql\\SmartXmlSql\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jinyu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\jinyu\\AppData\\Local\\Esri\\NuGet": {},
+          "D:\\Temp\\Nuget\\packages": {},
           "d:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
           "d:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
@@ -104,7 +110,7 @@
           "dependencies": {
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[3.1.3, )"
+              "version": "[3.1.5, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -114,7 +120,7 @@
             },
             "System.Linq.Dynamic.Core": {
               "target": "Package",
-              "version": "[1.0.23, )"
+              "version": "[1.1.5, )"
             },
             "System.Reflection.Emit.Lightweight": {
               "target": "Package",
@@ -131,7 +137,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.2.20176.6\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.4.20258.7\\RuntimeIdentifierGraph.json"
         }
       }
     }

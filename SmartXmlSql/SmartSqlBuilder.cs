@@ -28,6 +28,7 @@ namespace SmartXmlSql
     public class SmartSqlBuilder : IDisposable
     {
         private static ConcurrentDictionary<string, StatementItem> dicCache = new ConcurrentDictionary<string, StatementItem>();
+        
         /// <summary>
         /// 生成SQL信息
         /// </summary>
