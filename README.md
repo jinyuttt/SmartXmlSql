@@ -23,7 +23,7 @@ SmartXmlSqlMaper.xsd 提示xml关键字
 | Where     | 生成条件语句    | 该关键字下有sql部分语句返回 则会增加where同时移除or，and开头部分 |                                                              |                                                         |
 | Choose    | 选择部分        | 子节点必须是When，Othersize,并且要同时存在，可以有default节点 | 子节点相当于IF ...else                                       |                                                         |
 | When      | 选择            | 属性可以是IsNotEmpty或者Dynamic，IsNotEmpty判断实体属性是否为空；Dynamic为一般判断 | 为真则使用SQL部分，否则使用Othersize节点的SQL                |                                                         |
-| Othersize | 选择            | When为真则用它的SQL部分                                      |                                                              |                                                         |
+| Othersize | 选择            | When为假则用它的SQL部分                                      |                                                              |                                                         |
 | Switch    | 多项选择        | 使用子节点为真的部分SQL，子节点只能是Case，Default           |                                                              |                                                         |
 | Case      | 多项中的一项    | 为真则使用它的SQL部分                                        |                                                              |                                                         |
 | Set       | 更新语句的设置  | 将节点下的SQL加入SQL                                         |                                                              |                                                         |
