@@ -46,7 +46,7 @@ namespace SmartXmlSql
             Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
             if (args.Length==1&&args[0].GetType().IsClass&& args[0].GetType()!=typeof(string)&&sql.Key!="List" && sql.Key != "Batch")
             {
-                //遍历属性
+                //遍历属性生成替换SQL
                 object arg = args[0];
                 var properties=  arg.GetType().GetProperties();
                 foreach(var p in properties)
