@@ -1,8 +1,0 @@
-E:\Study\SmartXmlSql\SmartXmlSql\bin\Debug\netcoreapp3.1\SmartXmlSql.deps.json
-E:\Study\SmartXmlSql\SmartXmlSql\bin\Debug\netcoreapp3.1\SmartXmlSql.dll
-E:\Study\SmartXmlSql\SmartXmlSql\bin\Debug\netcoreapp3.1\SmartXmlSql.pdb
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.csproj.CoreCompileInputs.cache
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.AssemblyInfoInputs.cache
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.AssemblyInfo.cs
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.dll
-E:\Study\SmartXmlSql\SmartXmlSql\obj\Debug\netcoreapp3.1\SmartXmlSql.pdb

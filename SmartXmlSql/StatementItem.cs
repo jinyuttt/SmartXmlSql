@@ -16,7 +16,8 @@ namespace SmartXmlSql
       
         public StatementItem()
         {
-            Cache = new MemoryCache(new MemoryCacheOptions() {  ExpirationScanFrequency= TimeSpan.FromMinutes(1)});
+            //设置元素过期扫描时间
+            Cache = new MemoryCache(new MemoryCacheOptions() {  ExpirationScanFrequency= TimeSpan.FromMinutes(5)});
         }
 
         /// <summary>
@@ -26,8 +27,9 @@ namespace SmartXmlSql
         /// <param name="statement"></param>
         public void Set(string key,Statement statement)
         {
-            Cache.Set(key, statement,new MemoryCacheEntryOptions { 
-             SlidingExpiration=TimeSpan.FromHours(1)} );
+            //设置缓存并且15分钟没有使用过期
+             Cache.Set(key, statement,new MemoryCacheEntryOptions { 
+             SlidingExpiration=TimeSpan.FromMinutes(15)} );
         }
 
         /// <summary>

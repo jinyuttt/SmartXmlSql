@@ -4,13 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl>https://github.com/jinyuttt/SmartXmlSql.git</PackageProjectUrl>
     <Description>通过xml文件生成SQL</Description>
-    <Version>1.2.3</Version>
-    <PackageIcon>2019Hikari.png</PackageIcon>
+    <Version>1.2.5</Version>
+    
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>jinyu成都</Authors>
     <Company>SmartXmlSql</Company>
     <Copyright>jinyu</Copyright>
-    <PackageReleaseNotes>增加异常xml异常抛出</PackageReleaseNotes>
+    <PackageReleaseNotes>修改缓存时间</PackageReleaseNotes>
     <Title>SQL配置解析</Title>
   </PropertyGroup>
 
@@ -32,11 +32,6 @@
     <None Update="SmartXmlSqlMaper.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>SmartXmlSqlMaper.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="F:\BaiduNetdiskDownload\2019Hikari.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    
     </None>
     <Content Include="SmartXmlSqlMaper.xsd">
      
