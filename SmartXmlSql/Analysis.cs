@@ -35,7 +35,7 @@ namespace SmartXmlSql
             statement.Key = element.GetAttribute("Key");
             statement.DB = element.GetAttribute("DB");
            
-                string str=element.GetAttribute("Acess");
+            string str=element.GetAttribute("Acess");
             if (!string.IsNullOrEmpty(str.Trim()))
             {
                 AcessType acess;

@@ -29,8 +29,6 @@ namespace SmartXmlSql
             Child = new List<ITag>();
         }
 
-        
-
         public IList<ITag> Tags { get; set; }
 
         public IList<ITag> Child { get; set; }
