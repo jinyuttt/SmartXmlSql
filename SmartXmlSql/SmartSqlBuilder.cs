@@ -27,33 +27,36 @@ namespace SmartXmlSql
 {
     public class SmartSqlBuilder : IDisposable
     {
+        /// <summary>
+        /// xml文件内容
+        /// </summary>
         private static ConcurrentDictionary<string, StatementItem> dicCache = new ConcurrentDictionary<string, StatementItem>();
         
         /// <summary>
         /// 生成SQL信息
         /// </summary>
-        /// <param name="xml">文件名称</param>
+        /// <param name="xmlfile">文件名称</param>
         /// <param name="node">节点名称</param>
         /// <param name="obj">实体对象</param>
         /// <returns></returns>
-        public SqlDef Build(string xml, string node, object obj = null)
+        public SqlDef Build(string xmlfile, string node, object obj = null)
         {
             StatementItem item = null;
             Statement statement = null;
             try
             {
-                if (dicCache.TryGetValue(xml, out item))
+                if (dicCache.TryGetValue(xmlfile, out item))
                 {
                     statement = item.GetStatement(node);
                 }
                 if (statement == null)
                 {
-                    string file = Path.Combine(SmartXmlSqlCfg.XmlDir, xml) + ".xml";
+                    string file = Path.Combine(SmartXmlSqlCfg.XmlDir, xmlfile) + ".xml";
                     statement = Find(file, node);
                     if (item == null)
                     {
                         item = new StatementItem();
-                        dicCache[xml] = item;
+                        dicCache[xmlfile] = item;
                     }
                     item.Set(node, statement);
 
@@ -76,6 +79,7 @@ namespace SmartXmlSql
             {
                 builder.Append(tag.GetSql());
             }
+
             SqlDef def = new SqlDef() { Acess = statement.Acess, DB = statement.DB, Key = statement.Key, SQL = builder.ToString() };
             return def;
         }
@@ -109,6 +113,8 @@ namespace SmartXmlSql
             }
 
         }
+       
+        
         public void Dispose()
         {
             dicCache.Clear();

@@ -9,9 +9,6 @@ namespace SmartXmlSql
     /// </summary>
     public class StatementItem
     {
-
-       
-
         private readonly MemoryCache Cache = null;
       
         public StatementItem()

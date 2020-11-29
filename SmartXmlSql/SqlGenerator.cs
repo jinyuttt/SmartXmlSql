@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -17,11 +19,16 @@ namespace SmartXmlSql
         readonly SmartSqlBuilder smartSql = new SmartSqlBuilder();
         private static Lazy<SqlGenerator> generator = new Lazy<SqlGenerator>();
 
+        private readonly MemoryCache Cache = null;
         public static SqlGenerator Instance
         {
             get { return generator.Value; }
         }
 
+        public SqlGenerator()
+        {
+            Cache = new MemoryCache(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMinutes(5) });
+        }
         /// <summary>
         /// SQL生成
         /// </summary>
@@ -42,8 +49,12 @@ namespace SmartXmlSql
             {
                 sql = smartSql.Build(className, name, args[0]);
             }
+
+            sql.SQL = SQLRegular(sql.SQL);
             //SQL参数提取
             Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
+
+            //参数是类并且不需要生成in或者批量SQL
             if (args.Length == 1 && args[0].GetType().IsClass && args[0].GetType() != typeof(string) && sql.Key != "List" && sql.Key != "Batch")
             {
                 //遍历属性生成替换SQL
@@ -66,8 +77,15 @@ namespace SmartXmlSql
                     dic["@" + p.Name.ToLower()] = value;
                 }
             }
-            //
-            var sqlPi = SearchParam(sql.SQL);
+            //获取SQL参数结构化
+
+            List<string> sqlPi = null;
+            sqlPi = GetSqlParam(sql.SQL);
+            if(sqlPi==null)
+            {
+                sqlPi = SearchParam(sql.SQL);
+                SetSqlParam(sql.SQL, sqlPi);
+            }
             List<string> lstRp = SearchReplace(sql.SQL);
             Dictionary<string, SqlValue> dicParam = new Dictionary<string, SqlValue>();
             if (sql.Key == "Entity" && sqlPi.Count == 1)
@@ -333,6 +351,33 @@ namespace SmartXmlSql
                 sqlPi.Add(match.Groups[0].Value);
             }
             return sqlPi;
+        }
+
+
+        /// <summary>
+        /// 规整SQL,去除多余空格
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        private string SQLRegular(string sql)
+        {
+            string str = "";
+            str = Regex.Replace(sql, "\\s{2,}", " ");
+            return str.ToLower().Trim();
+        }
+
+
+        private List<string> GetSqlParam(string sql)
+        {
+           return Cache.Get<List<string>>(sql);
+        }
+
+        private void SetSqlParam(string sql,List<string> lst)
+        {
+            Cache.Set(sql, lst, new MemoryCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromMinutes(15)
+            });
         }
     }
 }
