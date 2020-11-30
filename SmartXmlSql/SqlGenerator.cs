@@ -19,7 +19,13 @@ namespace SmartXmlSql
         readonly SmartSqlBuilder smartSql = new SmartSqlBuilder();
         private static Lazy<SqlGenerator> generator = new Lazy<SqlGenerator>();
 
+        /// <summary>
+        /// SQL语句参数
+        /// </summary>
         private readonly MemoryCache Cache = null;
+
+        private readonly MemoryCache CacheParam = null;
+
         public static SqlGenerator Instance
         {
             get { return generator.Value; }
@@ -28,7 +34,9 @@ namespace SmartXmlSql
         public SqlGenerator()
         {
             Cache = new MemoryCache(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMinutes(5) });
+            CacheParam = new MemoryCache(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMinutes(5) });
         }
+       
         /// <summary>
         /// SQL生成
         /// </summary>
@@ -57,24 +65,44 @@ namespace SmartXmlSql
             //参数是类并且不需要生成in或者批量SQL
             if (args.Length == 1 && args[0].GetType().IsClass && args[0].GetType() != typeof(string) && sql.Key != "List" && sql.Key != "Batch")
             {
+                
                 //遍历属性生成替换SQL
                 object arg = args[0];
-                var properties = arg.GetType().GetProperties();
-                foreach (var p in properties)
-                {
-                    SqlValue value = new SqlValue() { DataType = p.PropertyType.FullName, Value = p.GetValue(arg).ToString() };
-                    dic["@" + p.Name.ToLower()] = value;
-                }
+                var dlg=  EmitEntity.CreateParamMethod<object>(arg);
+                dic= dlg(arg);
+                //var properties = arg.GetType().GetProperties();
+                //foreach (var p in properties)
+                //{
+                //    SqlValue value = new SqlValue() { DataType = p.PropertyType.FullName, Value = p.GetValue(arg).ToString() };
+                //    dic["@" + p.Name.ToLower()] = value;
+                //}
             }
             else
             {
-                //遍历参数替换
-                ParameterInfo[] parameters = mth.GetParameters();
-                for (int i = 0; i < parameters.Length; i++)
+                var lstKV = this.GetMthParam(mth.Name);
+                if (lstKV == null)
                 {
-                    var p = parameters[i];
-                    SqlValue value = new SqlValue() { DataType = p.ParameterType.FullName, Value = args[i].ToString() };
-                    dic["@" + p.Name.ToLower()] = value;
+                    //遍历参数替换
+                    List<SqlKV> lst = new List<SqlKV>();
+                    ParameterInfo[] parameters = mth.GetParameters();
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        var p = parameters[i];
+                        SqlValue value = new SqlValue() { DataType = p.ParameterType.FullName, Value = args[i].ToString() };
+                        dic["@" + p.Name.ToLower()] = value;
+                        lst.Add(new SqlKV() { Key = "@" + p.Name.ToLower(), Value = value });
+
+                    }
+                    this.SetMthParam(mth.Name, lst);
+                }
+                else
+                {
+                    for(int i=0;i>lstKV.Count;i++)
+                    {
+                        var tmp = lstKV[i];
+                        tmp.Value.Value = args[i].ToString();//只是替换值
+                        dic[tmp.Key] = tmp.Value;
+                    }
                 }
             }
             //获取SQL参数结构化
@@ -379,5 +407,20 @@ namespace SmartXmlSql
                 SlidingExpiration = TimeSpan.FromMinutes(15)
             });
         }
+
+        private List<SqlKV> GetMthParam(string key)
+        {
+            return CacheParam.Get<List<SqlKV>>(key);
+        }
+
+        private void SetMthParam(string key, List<SqlKV> lst)
+        {
+            CacheParam.Set(key, lst, new MemoryCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromMinutes(15)
+            });
+        }
+
+
     }
 }

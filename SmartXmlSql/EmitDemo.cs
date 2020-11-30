@@ -9,22 +9,22 @@ namespace SmartXmlSql
         public Dictionary<string, SqlValue> GetP(Person person)
         {
             Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
-            dic["@id"] = new SqlValue() { DataType = person.Id.GetType().Name, Value = person.Id.ToString() };
-            dic["@name"]= new SqlValue() { DataType = person.Name.GetType().Name, Value = person.Name };
+          
+            dic["@name"]= new SqlValue() { DataType = "string", Value =Convert.ToString(person.Name) };
             return dic;
         }
         public Dictionary<string, SqlValue> GetP(int id,string name)
         {
             Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
-            dic["@id"] = new SqlValue() { DataType = id.GetType().Name, Value =id.ToString() };
-            dic["@name"] = new SqlValue() { DataType = name.GetType().Name, Value = name };
+            dic["@id"] = new SqlValue() { DataType = "int32", Value =id.ToString() };
+            dic["@name"] = new SqlValue() { DataType = "string", Value = name };
             return dic;
         }
     }
 
     public class Person
     {
-        public int Id { get; set; }
+       
 
         public string Name { get; set; }
     }

@@ -13,6 +13,7 @@ namespace SmartXmlSql
         public MethodInfo GetValueMethod;
         public MethodInfo EnumConvert;
         public MethodInfo CanScientific;
+        public MemberInfo SetDataType;
         const string scientific_rule = "^[+-]?((\\d+\\.?\\d*)|(\\.\\d+))[Ee][+-]?\\d+$";
         public DynamicAssembleInfo(Type type)
         {
@@ -22,6 +23,7 @@ namespace SmartXmlSql
             GetValueMethod = type.GetMethod("get_Item", new Type[] { typeof(string) });
             EnumConvert = this.GetType().GetMethod("ConvertEnum", new Type[] { typeof(object), typeof(Type) });
             CanScientific = this.GetType().GetMethod("ScientificNotation", new Type[] { typeof(string) });
+            
         }
 
 
@@ -71,6 +73,26 @@ namespace SmartXmlSql
             string str = (string)obj;
             Regex reg = new Regex("^[+-]?((\\d+\\.?\\d*)|(\\.\\d+))[Ee][+-]?\\d+$", RegexOptions.IgnoreCase);
             return reg.IsMatch(str);
+        }
+
+        /// <summary>
+        /// 判断是否是科学计数法
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static void SetValueType(SqlValue obj,string type)
+        {
+            obj.DataType = type;
+        }
+
+        /// <summary>
+        /// 判断是否是科学计数法
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static void SetValue(SqlValue obj, string type)
+        {
+            obj.Value = type;
         }
     }
 }

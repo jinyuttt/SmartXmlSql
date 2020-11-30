@@ -37,12 +37,28 @@ namespace SmartXmlSql
         /// <returns></returns>
         private static DynamicMethod BuildMethod<T>(T obj)
         {
-          
-            DynamicMethod method = new DynamicMethod(obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
-                    new Type[] { obj.GetType() }, typeof(EntityContext).Module, true);
+            // specify a new assembly name
+            var assemblyName = new AssemblyName("Pets");
+
+            // create assembly builder
+            var assemblyBuilder = AppDomain.CurrentDomain
+              .DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+
+            // create module builder
+            var moduleBuilder = assemblyBuilder.DefineDynamicModule("PetsModule", "Pets.dll");
+
+            // create type builder for a class
+            var typeBuilder = moduleBuilder.DefineType("Kitty", TypeAttributes.Public);
+
+          var method=  typeBuilder.DefineMethod("Create"+obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
+                    new Type[] { obj.GetType() });
+            //DynamicMethod method = new DynamicMethod(obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
+            //        new Type[] { obj.GetType() }, typeof(EntityContext).Module, true);
             ILGenerator generator = method.GetILGenerator();
             LocalBuilder result = generator.DeclareLocal(typeof(Dictionary<string, SqlValue>));
-            LocalBuilder sqlv = generator.DeclareLocal(typeof(SqlValue));
+            LocalBuilder resultRmp = generator.DeclareLocal(typeof(Dictionary<string, SqlValue>));
+            var ret = generator.DefineLabel();
+            // LocalBuilder sqlv = generator.DeclareLocal(typeof(SqlValue));
             generator.Emit(OpCodes.Newobj, typeof(Dictionary<string, SqlValue>).GetConstructor(Type.EmptyTypes));
             generator.Emit(OpCodes.Stloc, result);
 
@@ -55,13 +71,13 @@ namespace SmartXmlSql
                 generator.Emit(OpCodes.Ldloc, result);
 
                 //第二组,属性设置
-                generator.Emit(OpCodes.Ldloc, sqlv);
+               // generator.Emit(OpCodes.Ldloc, sqlv);
               
                 generator.Emit(OpCodes.Ldstr, "@" + property.Name.ToLower());
                 generator.Emit(OpCodes.Newobj, typeof(SqlValue).GetConstructor(Type.EmptyTypes));
                 generator.Emit(OpCodes.Ldstr, property.PropertyType.Name);
                 generator.Emit(OpCodes.Call, typeof(SqlValue).GetProperty("DataType").GetSetMethod());
-                generator.Emit(OpCodes.Ldarg_0);
+                generator.Emit(OpCodes.Ldarg_1);
 
                 generator.Emit(OpCodes.Call, property.GetMethod);//获取值
 
@@ -87,8 +103,15 @@ namespace SmartXmlSql
 
             }
             generator.Emit(OpCodes.Ldloc, result);
+            generator.Emit(OpCodes.Stloc, resultRmp);
+            generator.Emit(OpCodes.Br_S, ret);
+            generator.MarkLabel(ret);
+            generator.Emit(OpCodes.Ldloc, resultRmp);
+          
             generator.Emit(OpCodes.Ret);
-            return method;
+            var classType = typeBuilder.CreateType();
+            assemblyBuilder.Save("Pets.dll");
+            return null;
         }
 
 

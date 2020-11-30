@@ -10,10 +10,12 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            //TestCls testCls = new TestCls();
             
-             Person person = new Person() { Age = 23, Name = "12" };
-              TestCls testCls = new TestCls();
+            //TestCls testCls = new TestCls();
+
+            Person person = new Person() { Age = 23, Name = "12" };
+          var dic=  EmitEntity.CreateParamMethod<Person>(person);
+            TestCls testCls = new TestCls();
             //var lst = testCls.SearchValues(@"(<$KK>,<$FF>)");
             var lst = new List<Person>();
             lst.Add(person);
