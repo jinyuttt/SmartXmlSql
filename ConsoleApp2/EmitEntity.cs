@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace SmartXmlSql
+namespace ConsoleApp2
 {
    public class EmitEntity
     {
@@ -37,28 +37,20 @@ namespace SmartXmlSql
         /// <returns></returns>
         private static DynamicMethod BuildMethod<T>(T obj)
         {
-            // specify a new assembly name
-            var assemblyName = new AssemblyName("Pets");
 
-            // create assembly builder
-            var assemblyBuilder = AppDomain.CurrentDomain
-              .DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+            var assemblyName = new AssemblyName("Kitty");
+           var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+            var moduleBuilder = assemblyBuilder.DefineDynamicModule("KittyModule", "Kitty.dll");
+            var typeBuilder = moduleBuilder.DefineType("HelloKittyClass", TypeAttributes.Public);
+            var method = typeBuilder.DefineMethod( "SayHelloMethod",  MethodAttributes.Public | MethodAttributes.Static,
+   typeof(Dictionary<string, SqlValue>),
+   new Type[] { obj.GetType() });
 
-            // create module builder
-            var moduleBuilder = assemblyBuilder.DefineDynamicModule("PetsModule", "Pets.dll");
-
-            // create type builder for a class
-            var typeBuilder = moduleBuilder.DefineType("Kitty", TypeAttributes.Public);
-
-          var method=  typeBuilder.DefineMethod("Create"+obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
-                    new Type[] { obj.GetType() });
-            //DynamicMethod method = new DynamicMethod(obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
+            //DynamicMethod method = new DynamicMethod("Create"+obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
             //        new Type[] { obj.GetType() }, typeof(EntityContext).Module, true);
             ILGenerator generator = method.GetILGenerator();
             LocalBuilder result = generator.DeclareLocal(typeof(Dictionary<string, SqlValue>));
-            LocalBuilder resultRmp = generator.DeclareLocal(typeof(Dictionary<string, SqlValue>));
-            var ret = generator.DefineLabel();
-            // LocalBuilder sqlv = generator.DeclareLocal(typeof(SqlValue));
+         
             generator.Emit(OpCodes.Newobj, typeof(Dictionary<string, SqlValue>).GetConstructor(Type.EmptyTypes));
             generator.Emit(OpCodes.Stloc, result);
 
@@ -75,9 +67,11 @@ namespace SmartXmlSql
               
                 generator.Emit(OpCodes.Ldstr, "@" + property.Name.ToLower());
                 generator.Emit(OpCodes.Newobj, typeof(SqlValue).GetConstructor(Type.EmptyTypes));
+                generator.Emit(OpCodes.Dup);
                 generator.Emit(OpCodes.Ldstr, property.PropertyType.Name);
                 generator.Emit(OpCodes.Call, typeof(SqlValue).GetProperty("DataType").GetSetMethod());
-                generator.Emit(OpCodes.Ldarg_1);
+                generator.Emit(OpCodes.Dup);
+                generator.Emit(OpCodes.Ldarg_0);
 
                 generator.Emit(OpCodes.Call, property.GetMethod);//获取值
 
@@ -102,15 +96,14 @@ namespace SmartXmlSql
                 generator.Emit(OpCodes.Call, typeof(Dictionary<string, SqlValue>).GetMethod("set_Item"));//
 
             }
-            generator.Emit(OpCodes.Ldloc, result);
-            generator.Emit(OpCodes.Stloc, resultRmp);
-            generator.Emit(OpCodes.Br_S, ret);
-            generator.MarkLabel(ret);
-            generator.Emit(OpCodes.Ldloc, resultRmp);
           
+            generator.Emit(OpCodes.Ldloc, result);
+           // generator.Emit(OpCodes.Stloc, resultTmp);
+           // generator.Emit(OpCodes.Ldloc, resultTmp);
             generator.Emit(OpCodes.Ret);
-            var classType = typeBuilder.CreateType();
-            assemblyBuilder.Save("Pets.dll");
+
+            typeBuilder.CreateType();
+            assemblyBuilder.Save("Kitty.dll");
             return null;
         }
 

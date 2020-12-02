@@ -1,4 +1,4 @@
-﻿namespace SmartXmlSql
+﻿namespace ConsoleApp2
 {
     public class SqlValue
     {

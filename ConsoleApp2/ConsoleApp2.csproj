@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmitDemo.cs" />
     <Compile Include="EmitEntity.cs" />
     <Compile Include="EntityContext.cs" />
     <Compile Include="Person.cs" />
@@ -52,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartXmlSql\SmartXmlSql.csproj">
+      <Project>{ab1e46a5-e2f4-4b69-a55f-387ba1e269c3}</Project>
+      <Name>SmartXmlSql</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

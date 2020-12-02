@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SmartXmlSql;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartXmlSql
+namespace ConsoleApp2
 {
    public class EmitDemo
     {
@@ -22,10 +23,5 @@ namespace SmartXmlSql
         }
     }
 
-    public class Person
-    {
-       
-
-        public string Name { get; set; }
-    }
+    
 }

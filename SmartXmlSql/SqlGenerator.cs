@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -68,7 +67,7 @@ namespace SmartXmlSql
                 
                 //遍历属性生成替换SQL
                 object arg = args[0];
-                var dlg=  EmitEntity.CreateParamMethod<object>(arg);
+                var dlg=  EmitEntityCompile.CreateParamMethod<object>(arg);
                 dic= dlg(arg);
                 //var properties = arg.GetType().GetProperties();
                 //foreach (var p in properties)

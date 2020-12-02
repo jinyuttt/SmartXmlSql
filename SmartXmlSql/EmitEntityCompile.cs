@@ -3,11 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 
 namespace SmartXmlSql
 {
-   public class EmitEntity
+    public class EmitEntityCompile
     {
         public delegate Dictionary<string, SqlValue> SqlCreateDic<T>( T obj);
 
@@ -38,29 +37,32 @@ namespace SmartXmlSql
         private static DynamicMethod BuildMethod<T>(T obj)
         {
           
-            DynamicMethod method = new DynamicMethod(obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
+            DynamicMethod method = new DynamicMethod("Create"+obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
                     new Type[] { obj.GetType() }, typeof(EntityContext).Module, true);
             ILGenerator generator = method.GetILGenerator();
+           
             LocalBuilder result = generator.DeclareLocal(typeof(Dictionary<string, SqlValue>));
-            LocalBuilder sqlv = generator.DeclareLocal(typeof(SqlValue));
+
             generator.Emit(OpCodes.Newobj, typeof(Dictionary<string, SqlValue>).GetConstructor(Type.EmptyTypes));
             generator.Emit(OpCodes.Stloc, result);
 
-           
+
             var properties = obj.GetType().GetProperties();
-           
+
             foreach (var column in properties)
             {
                 PropertyInfo property = column;
                 generator.Emit(OpCodes.Ldloc, result);
 
                 //第二组,属性设置
-                generator.Emit(OpCodes.Ldloc, sqlv);
-              
+                // generator.Emit(OpCodes.Ldloc, sqlv);
+
                 generator.Emit(OpCodes.Ldstr, "@" + property.Name.ToLower());
                 generator.Emit(OpCodes.Newobj, typeof(SqlValue).GetConstructor(Type.EmptyTypes));
+                generator.Emit(OpCodes.Dup);
                 generator.Emit(OpCodes.Ldstr, property.PropertyType.Name);
                 generator.Emit(OpCodes.Call, typeof(SqlValue).GetProperty("DataType").GetSetMethod());
+                generator.Emit(OpCodes.Dup);
                 generator.Emit(OpCodes.Ldarg_0);
 
                 generator.Emit(OpCodes.Call, property.GetMethod);//获取值
@@ -86,6 +88,7 @@ namespace SmartXmlSql
                 generator.Emit(OpCodes.Call, typeof(Dictionary<string, SqlValue>).GetMethod("set_Item"));//
 
             }
+
             generator.Emit(OpCodes.Ldloc, result);
             generator.Emit(OpCodes.Ret);
             return method;
