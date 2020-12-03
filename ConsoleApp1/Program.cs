@@ -10,7 +10,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            
+            long tskid = 3;
+            Test(tskid);
             //TestCls testCls = new TestCls();
 
             Person person = new Person() { Age = 23, Name = "12" };
@@ -28,6 +29,14 @@ namespace ConsoleApp1
            
         }
 
+        private static void Test( params object[] args)
+        {
+            if(args.Length == 1 && args[0].GetType().IsClass && args[0].GetType() != typeof(string))
+            {
+                Console.WriteLine("1");
+            }
+            var r = args[0].GetType();
+        }
        
 
        

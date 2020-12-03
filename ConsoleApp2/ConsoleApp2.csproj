@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="EmitDemo.cs" />
     <Compile Include="EmitEntity.cs" />
+    <Compile Include="EmitObject.cs" />
     <Compile Include="EntityContext.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />

@@ -7,8 +7,9 @@ namespace ConsoleApp2
 {
    public class EmitDemo
     {
-        public Dictionary<string, SqlValue> GetP(Person person)
+        public Dictionary<string, SqlValue> GetP(object obj)
         {
+            Person person = obj as Person;
             Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
           
             dic["@name"]= new SqlValue() { DataType = "string", Value =Convert.ToString(person.Name) };
@@ -20,6 +21,11 @@ namespace ConsoleApp2
             dic["@id"] = new SqlValue() { DataType = "int32", Value =id.ToString() };
             dic["@name"] = new SqlValue() { DataType = "string", Value = name };
             return dic;
+        }
+
+        public   Person  ConvertObj(object obj)
+        {
+            return obj as Person;
         }
     }
 

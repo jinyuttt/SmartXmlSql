@@ -6,13 +6,23 @@ using System.Reflection.Emit;
 
 namespace SmartXmlSql
 {
-    public class EmitEntityCompile
+
+    /// <summary>
+    /// 创建委托代理
+    /// </summary>
+    public class EmitObjectCompile
     {
-        public delegate Dictionary<string, SqlValue> SqlCreateDic<T>( T obj);
+        public delegate Dictionary<string, SqlValue> SqlCreateDic<T>(T obj);
 
-        private static ConcurrentDictionary<string, object> dicCache = new ConcurrentDictionary<string, object>();
+        /// <summary>
+        /// 缓存
+        /// </summary>
+        private static ConcurrentDictionary<string, SqlCreateDic<object>> dicCache = new ConcurrentDictionary<string, SqlCreateDic<object>>();
 
 
+        /// <summary>
+        /// 转换初始化
+        /// </summary>
         private static readonly Dictionary<Type, MethodInfo> ConvertMethods = new Dictionary<Type, MethodInfo>()
        {
            {typeof(int),typeof(Convert).GetMethod("ToString",new Type[]{typeof(int) })},
@@ -29,41 +39,49 @@ namespace SmartXmlSql
 
 
         /// <summary>
-        /// 构造转换动态方法（核心代码）
+        /// 构造转换动态方法（核心代码），以object作为参数  
+        /// 方法定义类似  public Dictionary<string, SqlValue> CreatePerson(object obj)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        private static DynamicMethod BuildMethod<T>(T obj)
+        private static DynamicMethod BuildMethod(object  obj)
         {
-          
-            DynamicMethod method = new DynamicMethod("Create"+obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
-                    new Type[] { typeof(T) }, typeof(EntityContext).Module, true);
+
+            DynamicMethod method = new DynamicMethod("Create" + obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
+                    new Type[] { typeof(object) }, typeof(EntityContext).Module, true);
             ILGenerator generator = method.GetILGenerator();
-           
+
+            LocalBuilder varTmp = generator.DeclareLocal(obj.GetType());
             LocalBuilder result = generator.DeclareLocal(typeof(Dictionary<string, SqlValue>));
 
+            //Person person = P_0 as Person;
+            generator.Emit(OpCodes.Ldarg_0);
+            generator.Emit(OpCodes.Isinst, obj.GetType());
+            generator.Emit(OpCodes.Stloc, varTmp);
+            
+            //Dictionary<string, SqlValue> dictionary = new Dictionary<string, SqlValue>();
             generator.Emit(OpCodes.Newobj, typeof(Dictionary<string, SqlValue>).GetConstructor(Type.EmptyTypes));
             generator.Emit(OpCodes.Stloc, result);
 
-
+            // 	dictionary["@id"] = new SqlValue
+            // 	{
+            // 		DataType = "Int32",
+            // 		Value = Convert.ToString(person.Id)
+            // 	};
             var properties = obj.GetType().GetProperties();
 
             foreach (var column in properties)
             {
                 PropertyInfo property = column;
                 generator.Emit(OpCodes.Ldloc, result);
-
-                //第二组,属性设置
-                // generator.Emit(OpCodes.Ldloc, sqlv);
-
                 generator.Emit(OpCodes.Ldstr, "@" + property.Name.ToLower());
                 generator.Emit(OpCodes.Newobj, typeof(SqlValue).GetConstructor(Type.EmptyTypes));
                 generator.Emit(OpCodes.Dup);
                 generator.Emit(OpCodes.Ldstr, property.PropertyType.Name);
                 generator.Emit(OpCodes.Call, typeof(SqlValue).GetProperty("DataType").GetSetMethod());
                 generator.Emit(OpCodes.Dup);
-                generator.Emit(OpCodes.Ldarg_0);
+                generator.Emit(OpCodes.Ldloc, varTmp);
 
                 generator.Emit(OpCodes.Call, property.GetMethod);//获取值
 
@@ -96,29 +114,25 @@ namespace SmartXmlSql
 
 
         /// <summary>
-        /// 创建委托
+        /// 创建对应的委托
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static SqlCreateDic<T> CreateParamMethod<T>(T obj)
+        public static SqlCreateDic<object> CreateParamMethod(object obj)
         {
-            SqlCreateDic<T> entity = null;
-            object sql = null;
-            if (dicCache.TryGetValue(typeof(T).Name, out sql))
+            SqlCreateDic<object> entity = null;
+           
+            if (dicCache.TryGetValue(obj.GetType().Name, out entity))
             {
-                entity = sql as SqlCreateDic<T>;
+                return entity;
             }
             else
             {
-                entity = (SqlCreateDic<T>)BuildMethod<T>(obj).CreateDelegate(typeof(SqlCreateDic<T>));
-                dicCache[typeof(T).Name] = entity;
+                entity = (SqlCreateDic<object>)BuildMethod(obj).CreateDelegate(typeof(SqlCreateDic<object>));
+                dicCache[obj.GetType().Name] = entity;
             }
-
-
             return entity;
         }
-
 
     }
 }

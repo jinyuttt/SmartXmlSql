@@ -11,7 +11,7 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
             Person person = new Person() {Name = "12",  Id=34 };
-            var dlg = SmartXmlSql.EmitEntityCompile.CreateParamMethod<object>(person);
+            var dlg =SmartXmlSql.EmitObjectCompile.CreateParamMethod(person);
             var dic=  dlg(person);
         }
     }

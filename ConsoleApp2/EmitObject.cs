@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SmartXmlSql
+namespace ConsoleApp2
 {
-    public class EmitEntityCompile
+    class EmitObject
     {
-        public delegate Dictionary<string, SqlValue> SqlCreateDic<T>( T obj);
+        public delegate Dictionary<string, SqlValue> SqlCreateDic<T>(T obj);
 
         private static ConcurrentDictionary<string, object> dicCache = new ConcurrentDictionary<string, object>();
 
@@ -34,14 +37,26 @@ namespace SmartXmlSql
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        private static DynamicMethod BuildMethod<T>(T obj)
+        private static DynamicMethod BuildMethod(object obj)
         {
-          
-            DynamicMethod method = new DynamicMethod("Create"+obj.GetType().Name, MethodAttributes.Public | MethodAttributes.Static, CallingConventions.Standard, typeof(Dictionary<string, SqlValue>),
-                    new Type[] { typeof(T) }, typeof(EntityContext).Module, true);
+
+            var assemblyName = new AssemblyName("Kitty");
+            var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+            var moduleBuilder = assemblyBuilder.DefineDynamicModule("KittyModule", "Kitty.dll");
+            var typeBuilder = moduleBuilder.DefineType("HelloKittyClass", TypeAttributes.Public);
+            var method = typeBuilder.DefineMethod("SayHelloMethod", MethodAttributes.Public | MethodAttributes.Static,
+   typeof(Dictionary<string, SqlValue>),
+   new Type[] { typeof(object) });
+
+         
             ILGenerator generator = method.GetILGenerator();
-           
+            LocalBuilder varTmp = generator.DeclareLocal(obj.GetType());
             LocalBuilder result = generator.DeclareLocal(typeof(Dictionary<string, SqlValue>));
+
+
+            generator.Emit(OpCodes.Ldarg_0);
+            generator.Emit(OpCodes.Isinst,obj.GetType());
+            generator.Emit(OpCodes.Stloc, varTmp);
 
             generator.Emit(OpCodes.Newobj, typeof(Dictionary<string, SqlValue>).GetConstructor(Type.EmptyTypes));
             generator.Emit(OpCodes.Stloc, result);
@@ -63,7 +78,7 @@ namespace SmartXmlSql
                 generator.Emit(OpCodes.Ldstr, property.PropertyType.Name);
                 generator.Emit(OpCodes.Call, typeof(SqlValue).GetProperty("DataType").GetSetMethod());
                 generator.Emit(OpCodes.Dup);
-                generator.Emit(OpCodes.Ldarg_0);
+                generator.Emit(OpCodes.Ldloc, varTmp);
 
                 generator.Emit(OpCodes.Call, property.GetMethod);//获取值
 
@@ -90,28 +105,27 @@ namespace SmartXmlSql
             }
 
             generator.Emit(OpCodes.Ldloc, result);
+            // generator.Emit(OpCodes.Stloc, resultTmp);
+            // generator.Emit(OpCodes.Ldloc, resultTmp);
             generator.Emit(OpCodes.Ret);
-            return method;
+
+            typeBuilder.CreateType();
+            assemblyBuilder.Save("Kitty.dll");
+            return null;
         }
 
 
-        /// <summary>
-        /// 创建委托
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static SqlCreateDic<T> CreateParamMethod<T>(T obj)
+        public static SqlCreateDic<object> CreateParamMethod<T>(T obj)
         {
-            SqlCreateDic<T> entity = null;
+            SqlCreateDic<object> entity = null;
             object sql = null;
             if (dicCache.TryGetValue(typeof(T).Name, out sql))
             {
-                entity = sql as SqlCreateDic<T>;
+                entity = sql as SqlCreateDic<object>;
             }
             else
             {
-                entity = (SqlCreateDic<T>)BuildMethod<T>(obj).CreateDelegate(typeof(SqlCreateDic<T>));
+                entity = (SqlCreateDic<object>)BuildMethod(obj).CreateDelegate(typeof(SqlCreateDic<object>));
                 dicCache[typeof(T).Name] = entity;
             }
 

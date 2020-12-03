@@ -16,13 +16,16 @@ namespace SmartXmlSql
     public  class SqlGenerator
     {
         readonly SmartSqlBuilder smartSql = new SmartSqlBuilder();
-        private static Lazy<SqlGenerator> generator = new Lazy<SqlGenerator>();
+        private static readonly Lazy<SqlGenerator> generator = new Lazy<SqlGenerator>();
 
         /// <summary>
         /// SQL语句参数
         /// </summary>
         private readonly MemoryCache Cache = null;
 
+        /// <summary>
+        /// 调用方法参数
+        /// </summary>
         private readonly MemoryCache CacheParam = null;
 
         public static SqlGenerator Instance
@@ -33,7 +36,7 @@ namespace SmartXmlSql
         public SqlGenerator()
         {
             Cache = new MemoryCache(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMinutes(5) });
-            CacheParam = new MemoryCache(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMinutes(5) });
+            CacheParam = new MemoryCache(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMinutes(1) });
         }
        
         /// <summary>
@@ -67,7 +70,7 @@ namespace SmartXmlSql
                 
                 //遍历属性生成替换SQL
                 object arg = args[0];
-                var dlg=  EmitEntityCompile.CreateParamMethod<object>(arg);
+                var dlg=  EmitObjectCompile.CreateParamMethod(arg);
                 dic= dlg(arg);
                 //var properties = arg.GetType().GetProperties();
                 //foreach (var p in properties)
@@ -78,7 +81,8 @@ namespace SmartXmlSql
             }
             else
             {
-                var lstKV = this.GetMthParam(mth.Name);
+                string strKey = string.Join("-", mth.ReflectedType.FullName, mth.Name);
+                var lstKV = this.GetMthParam(strKey);
                 if (lstKV == null)
                 {
                     //遍历参数替换
@@ -92,7 +96,7 @@ namespace SmartXmlSql
                         lst.Add(new SqlKV() { Key = "@" + p.Name.ToLower(), Value = value });
 
                     }
-                    this.SetMthParam(mth.Name, lst);
+                    this.SetMthParam(strKey, lst);
                 }
                 else
                 {
@@ -393,12 +397,21 @@ namespace SmartXmlSql
             return str.ToLower().Trim();
         }
 
-
+        /// <summary>
+        /// 获取SQL缓存的参数
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         private List<string> GetSqlParam(string sql)
         {
            return Cache.Get<List<string>>(sql);
         }
 
+       /// <summary>
+       /// 按照SQL缓存解析的SQL参数
+       /// </summary>
+       /// <param name="sql"></param>
+       /// <param name="lst"></param>
         private void SetSqlParam(string sql,List<string> lst)
         {
             Cache.Set(sql, lst, new MemoryCacheEntryOptions
@@ -407,16 +420,26 @@ namespace SmartXmlSql
             });
         }
 
+        /// <summary>
+        /// 获取调用方法的缓存
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         private List<SqlKV> GetMthParam(string key)
         {
             return CacheParam.Get<List<SqlKV>>(key);
         }
 
+       /// <summary>
+       /// 缓存调用方法的参数
+       /// </summary>
+       /// <param name="key">方法名称</param>
+       /// <param name="lst">方法参数</param>
         private void SetMthParam(string key, List<SqlKV> lst)
         {
             CacheParam.Set(key, lst, new MemoryCacheEntryOptions
             {
-                SlidingExpiration = TimeSpan.FromMinutes(15)
+                SlidingExpiration = TimeSpan.FromMinutes(5)
             });
         }
 
