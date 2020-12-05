@@ -10,6 +10,9 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
+
+            string str = typeof(string).Name.ToLower();
+            str = typeof(DateTime).Name.ToLower();
             Person person = new Person() {Name = "12",  Id=34 };
             var dlg =SmartXmlSql.EmitObjectCompile.CreateParamMethod(person);
             var dic=  dlg(person);

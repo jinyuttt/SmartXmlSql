@@ -9,6 +9,7 @@ namespace SmartXmlSql
 
     /// <summary>
     /// 创建委托代理
+    /// 内部有缓存
     /// </summary>
     public class EmitObjectCompile
     {

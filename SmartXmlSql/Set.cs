@@ -23,7 +23,11 @@ using System.Text;
 
 namespace SmartXmlSql
 {
-   public class Set:Tag
+    public class Set:Tag
     {
+        public override string GetSql()
+        {
+            return "set "+ base.GetSql();
+        }
     }
 }

@@ -5,17 +5,54 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="SmartXmlSqlMaper.xsd">
  <!--xsi:noNamespaceSchemaLocation=">-->
 
-  <Statement  Id="ss" Key="List">
-    <Where>
-     <Switch Prepend="And">
-       <Case IsNotEmpty="">
-         
-       </Case>
-     </Switch>
-    </Where>
-   <Set >
-      
-   </Set>
+  <Statement  Id="TestList" Key="List">
+	  insert into stu(name) values(&lt;$Name&gt;)
   </Statement>
+	<Statement  Id="TestBatch" Key="Batch">
+		insert into stu  (&lt;$p&gt;) values(@p)
+	</Statement>
+
+	<Statement  Id="TestArray" Key="Array">
+		select * from stu where name in (&lt;$p&gt;)
+	</Statement>
+
+	<Statement  Id="TestEntity" Key="Entity">
+		insert into stu (&lt;$p&gt;) values(@p) 
+	</Statement>
+
+	<Statement  Id="TestPartEntity" Key="Entity">
+		insert into stu (age,address) values(@age,@address)
+	</Statement>
+
+	<Statement  Id="QueryStu" >
+		select * from stu 
+		<Where>
+			<When Prepend="And" IsNotEmpty="" Dynamic="Age>0">
+				age=34
+			</When>
+		
+		</Where>
+	</Statement>
+
+	<Statement  Id="UpdateStu" >
+	    update stu 
+		<Set>
+			age=@age,name=@name
+		</Set>
+		<Where>
+			<When Prepend="And" IsNotEmpty="" Dynamic="id>0">
+				id=@id
+			</When>
+
+		</Where>
+	</Statement>
+
+	<Statement  Id="QueryStuById" >
+		select * from stu where id=@id
+	</Statement>
+
+	<Statement  Id="QueryStuByName" >
+		select * from stu where name like @name  and  xx like @yy and mm like @zz
+	</Statement>
 </SqlMapper>
   

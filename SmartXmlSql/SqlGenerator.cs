@@ -65,46 +65,44 @@ namespace SmartXmlSql
             Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
 
             //参数是类并且不需要生成in或者批量SQL
-            if (args.Length == 1 && args[0].GetType().IsClass && args[0].GetType() != typeof(string) && sql.Key != "List" && sql.Key != "Batch")
+            if (args.Length == 1 && args[0].GetType().IsClass && args[0].GetType() != typeof(string) && sql.Key != "List" && sql.Key != "Batch" && sql.Key != "Array")
             {
                 
                 //遍历属性生成替换SQL
                 object arg = args[0];
                 var dlg=  EmitObjectCompile.CreateParamMethod(arg);
                 dic= dlg(arg);
-                //var properties = arg.GetType().GetProperties();
-                //foreach (var p in properties)
-                //{
-                //    SqlValue value = new SqlValue() { DataType = p.PropertyType.FullName, Value = p.GetValue(arg).ToString() };
-                //    dic["@" + p.Name.ToLower()] = value;
-                //}
+              
             }
             else
             {
-                string strKey = string.Join("-", mth.ReflectedType.FullName, mth.Name);
-                var lstKV = this.GetMthParam(strKey);
-                if (lstKV == null)
+                if (sql.Key != "List" && sql.Key != "Batch"&& sql.Key != "Entity"&& sql.Key != "Array")
                 {
-                    //遍历参数替换
-                    List<SqlKV> lst = new List<SqlKV>();
-                    ParameterInfo[] parameters = mth.GetParameters();
-                    for (int i = 0; i < parameters.Length; i++)
+                    string strKey = string.Join("-", mth.ReflectedType.FullName, mth.Name);
+                    var lstKV = this.GetMthParam(strKey);
+                    if (lstKV == null)
                     {
-                        var p = parameters[i];
-                        SqlValue value = new SqlValue() { DataType = p.ParameterType.FullName, Value = args[i].ToString() };
-                        dic["@" + p.Name.ToLower()] = value;
-                        lst.Add(new SqlKV() { Key = "@" + p.Name.ToLower(), Value = value });
+                        //遍历参数替换
+                        List<SqlKV> lst = new List<SqlKV>();
+                        ParameterInfo[] parameters = mth.GetParameters();
+                        for (int i = 0; i < parameters.Length; i++)
+                        {
+                            var p = parameters[i];
+                            SqlValue value = new SqlValue() { DataType = p.ParameterType.FullName, Value = args[i].ToString() };
+                            dic["@" + p.Name.ToLower()] = value;
+                            lst.Add(new SqlKV() { Key = "@" + p.Name.ToLower(), Value = value });
 
+                        }
+                        this.SetMthParam(strKey, lst);
                     }
-                    this.SetMthParam(strKey, lst);
-                }
-                else
-                {
-                    for(int i=0;i>lstKV.Count;i++)
+                    else
                     {
-                        var tmp = lstKV[i];
-                        tmp.Value.Value = args[i].ToString();//只是替换值
-                        dic[tmp.Key] = tmp.Value;
+                        for (int i = 0; i > lstKV.Count; i++)
+                        {
+                            var tmp = lstKV[i];
+                            tmp.Value.Value = args[i].ToString();//只是替换值
+                            dic[tmp.Key] = tmp.Value;
+                        }
                     }
                 }
             }
@@ -118,7 +116,7 @@ namespace SmartXmlSql
                 SetSqlParam(sql.SQL, sqlPi);
             }
             List<string> lstRp = SearchReplace(sql.SQL);
-            Dictionary<string, SqlValue> dicParam = new Dictionary<string, SqlValue>();
+
             if (sql.Key == "Entity" && sqlPi.Count == 1)
             {
                 //形如：insert into kk (<$p>) values(@p) 
@@ -134,18 +132,18 @@ namespace SmartXmlSql
                 }
                 p.Remove(p.Length - 1, 1);
                 v.Remove(v.Length - 1, 1);
-                //
-                string tmp = sqlPi[0].Substring(1);
+                //替换SQL参数模板，生成参数化SQL
+                string tmp = sqlPi[0].Substring(1);//取出替换字段部分
                 sql.SQL = sql.SQL.Replace("<$" + tmp + ">", p.ToString());
-                sql.SQL = sql.SQL.Replace("@" + tmp, v.ToString());
+                sql.SQL = sql.SQL.Replace("@" + tmp, v.ToString());//取出替参数部分
                 sqlPi = SearchParam(sql.SQL);//生成后直接再次处理
             }
             else if (sql.Key == "Array" && lstRp.Count == 1 && args.Length == 1 && args[0].GetType().IsArray)
             {
-
+                //有替换部分，并且是数组
                 //形如：select * from XX where id in(<$p>)
                 StringBuilder p = new StringBuilder();
-                bool isStr = false;
+                bool isStr = false;//是否是字符串数组
 
                 Array array = (Array)args[0];
                 if (array.GetValue(0).GetType() == typeof(string))
@@ -164,8 +162,7 @@ namespace SmartXmlSql
                     }
                 }
                 p.Remove(p.Length - 1, 1);
-                //
-                lstRp = SearchReplace(sql.SQL);
+
                 string rpin = "";
                 foreach (var rp in lstRp)
                 {
@@ -180,7 +177,7 @@ namespace SmartXmlSql
             else if (sql.Key == "List")
             {
                 //insert into XX(XXX,XXX,XXX)values(<$YYY>,<$YYY>,<$YYY>)
-                //
+                //部分属性
                 //按照SQL参数拼接批量插入：这里不能使用参数，而是整体取出values后面部分
                 List<string> templelte = SearchValues(sql.SQL);
                 string values = "";
@@ -193,34 +190,31 @@ namespace SmartXmlSql
                         break;
                     }
                 }
-                Dictionary<string, PropertyInfo> dicpro = new Dictionary<string, PropertyInfo>();
+
                 if (!string.IsNullOrEmpty(values))
                 {
                     IList arg = args[0] as IList;
-                    var properties = arg[0].GetType().GetProperties();
-                    foreach (var p in properties)
-                    {
+                    var dlg = EmitObjectCompile.CreateParamMethod(arg[0]);
 
-                        dicpro["@" + p.Name.ToLower()] = p;
-                    }
                     List<string> rps = SearchReplace(values);
-                    PropertyInfo v;
+                    SqlValue v;
                     foreach (var entity in arg)
                     {
                         //一组
+                        dic = dlg(entity);
                         builder.Append("(");
                         foreach (var p in rps)
                         {
                             string ky = "@" + p.Substring(2).TrimEnd('>').ToLower().Trim();
-                            if (dicpro.TryGetValue(ky, out v))
+                            if (dic.TryGetValue(ky, out v))
                             {
-                                if (v.PropertyType == typeof(string) || v.PropertyType == typeof(DateTime))
+                                if (v.DataType == "String" || v.DataType == "DateTime")
                                 {
-                                    builder.AppendFormat("'{0}',", v.GetValue(entity));
+                                    builder.AppendFormat("'{0}',", v.Value);
                                 }
                                 else
                                 {
-                                    builder.AppendFormat("{0},", v.GetValue(entity));
+                                    builder.AppendFormat("{0},", v.Value);
                                 }
 
                             }
@@ -239,31 +233,27 @@ namespace SmartXmlSql
             {
 
                 //形如：insert into kk (<$p>) values(@p) 
+                //全部属性
                 IList arg = args[0] as IList;
-                var properties = arg[0].GetType().GetProperties();
-                Dictionary<string, PropertyInfo> dicpro = new Dictionary<string, PropertyInfo>();
-                foreach (var p in properties)
-                {
-
-                    dicpro[p.Name.ToLower()] = p;
-                }
+                var dlg = EmitObjectCompile.CreateParamMethod(arg[0]);
 
                 StringBuilder builder = new StringBuilder();
                 StringBuilder v = new StringBuilder();
                 foreach (var p in arg)
                 {
+                    dic = dlg(p);
                     v.Append("(");
                     builder.Clear();
-                    foreach (var kv in dicpro)
+                    foreach (var kv in dic)
                     {
-                        builder.AppendFormat("{0},", kv.Key);
-                        if (kv.Value.PropertyType == typeof(string) || kv.Value.PropertyType == typeof(DateTime))
+                        builder.AppendFormat("{0},", kv.Key.Substring(1));
+                        if (kv.Value.DataType == "String" || kv.Value.DataType == "DateTime")
                         {
-                            v.AppendFormat("'{0}',", kv.Value.GetValue(p));
+                            v.AppendFormat("'{0}',", kv.Value.Value);
                         }
                         else
                         {
-                            v.AppendFormat("{0},", kv.Value.GetValue(p));
+                            v.AppendFormat("{0},", kv.Value.Value);
                         }
                     }
                     v.Remove(v.Length - 1, 1);
@@ -287,13 +277,21 @@ namespace SmartXmlSql
                     }
                 }
                 //
+                if(builder.Length>0)
+                {
+                    builder.Remove(builder.Length - 1, 1);
+                }
+                if(v.Length>0)
+                {
+                    v.Remove(v.Length - 1, 1);
+                }
                 sql.SQL = sql.SQL.Replace(field, "(" + builder.ToString() + ")");
                 sql.SQL = sql.SQL.Replace(values, v.ToString());
             }
-            if (lstRp == null)
+
+            //如果没有处理过以上分支
+            else
             {
-                //没有替换过则替换
-                lstRp = SearchReplace(sql.SQL);
                 foreach (var p in lstRp)
                 {
                     //去除标记
@@ -308,11 +306,10 @@ namespace SmartXmlSql
                         //替换同名参数
                         sql.SQL = sql.SQL.Replace(p.Substring(1), value.Value);
                     }
-
                 }
-
             }
             //按照SQL参数输出
+            Dictionary<string, SqlValue> dicParam = new Dictionary<string, SqlValue>();
             foreach (var p in sqlPi)
             {
                 SqlValue value = null;
@@ -322,6 +319,33 @@ namespace SmartXmlSql
                 }
             }
 
+            //检查like
+            string strSQl = sql.SQL;
+            int index = strSQl.IndexOf("like @");
+            while (index > -1)
+            {
+                string tmp = strSQl.Substring(index + 5);
+                int indexlast = tmp.IndexOf(" ");
+                string key = "";
+                if (indexlast > -1)
+                {
+                    key = tmp.Substring(0, indexlast);
+                }
+                else
+                {
+                    key = tmp;
+                }
+                   
+                SqlValue sqlValue = null;
+                if (dicParam.TryGetValue(key, out sqlValue))
+                {
+                    sqlValue.Value = string.Format("%{0}%", sqlValue.Value);
+                }
+                strSQl = tmp;//截取赋值
+                index = strSQl.IndexOf("like @");
+            }
+
+            
             BuilderContent content = new BuilderContent() { Sql = sql.SQL, SqlParam = dicParam };
             return content;
         }

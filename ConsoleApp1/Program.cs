@@ -10,23 +10,29 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            long tskid = 3;
-            Test(tskid);
-            //TestCls testCls = new TestCls();
+            //long tskid = 3;
+            //Test(tskid);
 
-            Person person = new Person() { Age = 23, Name = "12" };
-          var dic=  EmitEntityCompile.CreateParamMethod<Person>(person);
+            Person person = new Person() { Age = 23, Name = "12", Address="ddd" };
+          
             TestCls testCls = new TestCls();
-            //var lst = testCls.SearchValues(@"(<$KK>,<$FF>)");
+
             var lst = new List<Person>();
             lst.Add(person);
-            testCls.Test(lst);
-          //  SmartSqlBuilder builder = new SmartSqlBuilder();
+            person = new Person() { Age = 34, Name = "jin",  Address="ddd", Id=44};
+            lst.Add(person);
+            testCls.TestList(lst);
+            testCls.TestBatch(lst);
+            string[] user = new string[] { "tom", "jin","yu" };
+            testCls.TestArray(user);
+            testCls.TestEntity(person);
+            testCls.TestPartEntity(person);
+            testCls.QueryStu(person);
+            testCls.UpdateStu(person);
+            testCls.QueryStuById(34);
 
-            //var r = builder.Build("Test.xml", "test", person);
-            //Console.WriteLine(r);
+            testCls.QueryStuByName("jinyu");
 
-           
         }
 
         private static void Test( params object[] args)
