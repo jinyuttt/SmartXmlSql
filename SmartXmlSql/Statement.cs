@@ -21,6 +21,10 @@ using System.Collections.Generic;
 
 namespace SmartXmlSql
 {
+
+    /// <summary>
+    /// SQL访问语句
+    /// </summary>
     public class Statement
     {
         public Statement()

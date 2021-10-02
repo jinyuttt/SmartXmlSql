@@ -25,8 +25,15 @@ namespace SmartXmlSql
     /// </summary>
     public class StatementException:Exception
     {
+
+        /// <summary>
+        /// 异常编码
+        /// </summary>
        public string ErrorCode { get; set; }
 
+       /// <summary>
+       /// 异常信息
+       /// </summary>
         public string  ErrorParam { get; set; }
 
         public StatementException(string code,string errNode, string Msg):base(Msg)

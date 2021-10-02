@@ -18,20 +18,42 @@
 
 namespace SmartXmlSql
 {
+    /// <summary>
+    /// 表示一个sql语句节点
+    /// </summary>
     public interface ITag
     {
+        /// <summary>
+        /// 解析的语句结果
+        /// </summary>
         Statement Statement { get; set; }
 
+        /// <summary>
+        /// 父节点
+        /// </summary>
 
         ITag Parent { get; set; }
 
+        /// <summary>
+        /// SQL语句
+        /// </summary>
          string Sql { get; set; }
 
+        /// <summary>
+        /// 预置词
+        /// </summary>
          string Prepend { get; set; }
 
      
+        /// <summary>
+        /// 输出语句
+        /// </summary>
         void BuildSql();
 
+        /// <summary>
+        /// 获取语句
+        /// </summary>
+        /// <returns></returns>
         string GetSql();
     }
 }
