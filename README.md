@@ -4,7 +4,7 @@ XML配置SQL
 
 -----------------------------
 使用  
-SqlGenerator.Instance.Builder()；
+SqlGenerator.Instance.Builder()；  
 SqlGenerator.Instance.Builder(new Person)；传入参数值
 
 -----------------------------
@@ -12,11 +12,15 @@ SqlGenerator.Instance.Builder(new Person)；传入参数值
 
             var ss = new TableInfo() { TableName = "stud" };  
             ss.ColumnInfos.Add(new ColumnInfo() { ColumnName = "id", ColumnType = typeof(int), Description = "编号" });  
-            ss.ColumnInfos.Add(new ColumnInfo() { ColumnName = "name", ColumnType = typeof(string), Description = "名称" });  
-
+            ss.ColumnInfos.Add(new ColumnInfo() { ColumnName = "name", ColumnType = typeof(string), Description = "名称" });   
             DBCodeEntity.CreateCodeFile(ss, "ss.cs", "mytest", "myserver");   
 
 -------------------------------
+增加扩展方法，实现参数简单转换  
+ Dictionary<string,SqlValue> dicSql = new Dictionary<string,SqlValue>();  
+             Dictionary<string,object> obj=  dicSql.ToObjectParam();  
+
+---------------------------------
 SmartXmlSqlMaper.xsd 提示xml关键字
 
 -----------------------------

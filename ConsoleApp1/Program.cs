@@ -13,6 +13,8 @@ namespace ConsoleApp1
         {
             TestCls();
             //long tskid = 3;
+             Dictionary<string,SqlValue> dicSql = new Dictionary<string,SqlValue>();
+             Dictionary<string,object> obj=  dicSql.ToObjectParam();
             //Test(tskid);
             //for (int i = 0; i < 1000; i++)
             //{
