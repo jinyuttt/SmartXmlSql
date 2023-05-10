@@ -8,6 +8,13 @@ namespace SmartXmlSql.Entitys
     /// </summary>
     public class DBCodeEntity
     {
+        /// <summary>
+        /// 生成实体代码
+        /// </summary>
+        /// <param name="tableInfo">表信息</param>
+        /// <param name="filePath">路径</param>
+        /// <param name="codeClassName">类名称</param>
+        /// <param name="codeNamespace">命名空间</param>
         public static void CreateCodeFile(TableInfo tableInfo, string filePath, string codeClassName, string codeNamespace)
         {
 

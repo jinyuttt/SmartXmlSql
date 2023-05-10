@@ -4,9 +4,19 @@ XML配置SQL
 
 -----------------------------
 使用  
-SqlGenerator.Instance.Builder()；传入参数值
+SqlGenerator.Instance.Builder()；
+SqlGenerator.Instance.Builder(new Person)；传入参数值
 
 -----------------------------
+生成实体代码   
+
+            var ss = new TableInfo() { TableName = "stud" };  
+            ss.ColumnInfos.Add(new ColumnInfo() { ColumnName = "id", ColumnType = typeof(int), Description = "编号" });  
+            ss.ColumnInfos.Add(new ColumnInfo() { ColumnName = "name", ColumnType = typeof(string), Description = "名称" });  
+
+            DBCodeEntity.CreateCodeFile(ss, "ss.cs", "mytest", "myserver");   
+
+-------------------------------
 SmartXmlSqlMaper.xsd 提示xml关键字
 
 -----------------------------

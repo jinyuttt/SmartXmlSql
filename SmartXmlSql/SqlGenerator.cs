@@ -42,7 +42,7 @@ namespace SmartXmlSql
         /// <summary>
         /// SQL生成
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">实体对象</param>
         /// <returns></returns>
         public BuilderContent Builder(params object[] args)
         {
