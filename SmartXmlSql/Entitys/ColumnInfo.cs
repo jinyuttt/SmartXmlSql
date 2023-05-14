@@ -2,6 +2,10 @@
 
 namespace SmartXmlSql
 {
+
+    /// <summary>
+    /// 列信息
+    /// </summary>
     public class ColumnInfo
     {
         /// <summary>

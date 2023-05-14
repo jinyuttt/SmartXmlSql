@@ -15,6 +15,13 @@ SqlGenerator.Instance.Builder(new Person)；传入参数值
             ss.ColumnInfos.Add(new ColumnInfo() { ColumnName = "name", ColumnType = typeof(string), Description = "名称" });   
             DBCodeEntity.CreateCodeFile(ss, "ss.cs", "mytest", "myserver");   
 
+             var lst=new List<TableInfo>();  
+            lst.Add(ss);  
+            DBCodeUtil.CreateDBEntity(lst,"mytest","");  
+
+              DataSet ds = new DataSet();  
+            DBCodeUtil.CreateDBEntity(ds, "mytest", "");  
+
 -------------------------------
 增加扩展方法，实现参数简单转换  
  Dictionary<string,SqlValue> dicSql = new Dictionary<string,SqlValue>();  

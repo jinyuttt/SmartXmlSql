@@ -39,14 +39,26 @@ namespace SmartXmlSql.Entitys
             myClass.TypeAttributes = System.Reflection.TypeAttributes.Public;
             foreach (var f in tableInfo.ColumnInfos)
             {
+                //
+                CodeMemberField field = new CodeMemberField();
+                field.Attributes = MemberAttributes.Private;
+                field.Name = f.ColumnName.ToLower();
+                field.Type = new CodeTypeReference(f.ColumnType);
+                myClass.Members.Add(field);
+                //
                 CodeMemberProperty property1 = new CodeMemberProperty();
+                f.ColumnName =f.ColumnName.Substring(0,1).ToUpper()+f.ColumnName.Substring(1);    
                 property1.Name = f.ColumnName;
                 property1.Type = new CodeTypeReference(f.ColumnType);
                 property1.Attributes = MemberAttributes.Public|MemberAttributes.Final;
-                property1.HasGet = true;
-                property1.HasSet = true;
+                  property1.HasGet = true;
+                 property1.HasSet = true;
+                property1.GetStatements.Add(new CodeMethodReturnStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), f.ColumnName.ToLower())));
 
-                myClass.Members.Add(property1);
+                property1.SetStatements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), f.ColumnName.ToLower()),
+
+                     new CodePropertySetValueReferenceExpression()));
+                  myClass.Members.Add(property1);
 
                 CodeComment comment = new CodeComment(f.Description,false);
          

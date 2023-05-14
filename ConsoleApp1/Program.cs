@@ -2,6 +2,7 @@
 using SmartXmlSql.Entitys;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -11,7 +12,9 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            TestCls();
+            HariCode hariCode = new HariCode();
+            hariCode.Create("");
+           // TestCls();
             //long tskid = 3;
              Dictionary<string,SqlValue> dicSql = new Dictionary<string,SqlValue>();
              Dictionary<string,object> obj=  dicSql.ToObjectParam();
@@ -58,6 +61,12 @@ namespace ConsoleApp1
 
             DBCodeEntity.CreateCodeFile(ss, "ss.cs", "mytest", "myserver");
 
+            var lst=new List<TableInfo>();
+            lst.Add(ss);
+            DBCodeUtil.CreateDBEntity(lst,"mytest","");
+
+            DataSet ds = new DataSet();
+            DBCodeUtil.CreateDBEntity(ds, "mytest", "");
             //myserver.mytest mytest = new myserver.mytest();
             //mytest.name = "ss";
         }
