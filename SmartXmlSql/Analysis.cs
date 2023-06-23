@@ -21,6 +21,8 @@ using System;
 using System.Reflection;
 using System.Xml;
 using System.Linq;
+using SmartXmlSql.statements;
+
 namespace SmartXmlSql
 {
 
@@ -29,6 +31,11 @@ namespace SmartXmlSql
     /// </summary>
     public class Analysis
     {
+        /// <summary>
+        /// xml获取Statement
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="statement"></param>
         public void AnalysisStatement(XmlNode node, Statement statement)
         {
             XmlElement element = (XmlElement)node;
@@ -99,7 +106,7 @@ namespace SmartXmlSql
                         Parent = tag,
                         Sql = str,
                         Property = "IsNotEmpty",
-                         Statement=statement
+                        Statement=statement
                     };
                     statement.Tags.Add(dynamic);
                 }

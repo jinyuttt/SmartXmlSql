@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using SmartXmlSql.Cache;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace SmartXmlSql
         private readonly MemoryCache Cache = null;
 
         /// <summary>
-        /// 调用方法参数
+        /// 调用的参数缓存
         /// </summary>
         private readonly MemoryCache CacheParam = null;
 
@@ -42,7 +43,7 @@ namespace SmartXmlSql
         /// <summary>
         /// SQL生成
         /// </summary>
-        /// <param name="args">实体对象</param>
+        /// <param name="args">实体对象，SQL参数赋值使用</param>
         /// <returns></returns>
         public BuilderContent Builder(params object[] args)
         {
@@ -91,7 +92,6 @@ namespace SmartXmlSql
                             SqlValue value = new SqlValue() { DataType = p.ParameterType.FullName, Value = args[i].ToString() };
                             dic["@" + p.Name.ToLower()] = value;
                             lst.Add(new SqlKV() { Key = "@" + p.Name.ToLower(), Value = value });
-
                         }
                         this.SetMthParam(strKey, lst);
                     }

@@ -6,6 +6,9 @@ using System.Reflection.Emit;
 
 namespace SmartXmlSql
 {
+    /// <summary>
+    /// 验证类，无用
+    /// </summary>
     public class EmitEntityCompile
     {
         public delegate Dictionary<string, SqlValue> SqlCreateDic<T>( T obj);

@@ -21,10 +21,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SmartXmlSql.statements;
 
 namespace SmartXmlSql
 {
-   public class Case:Tag
+    public class Case:Tag
     {
         public override string GetSql()
         {

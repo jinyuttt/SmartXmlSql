@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SmartXmlSql
 {
     /// <summary>
     /// SQL内容
     /// </summary>
-   public class BuilderContent
+    public class BuilderContent
     {
         /// <summary>
         /// SQL语句

@@ -19,7 +19,7 @@
 
 using System.Collections.Generic;
 
-namespace SmartXmlSql
+namespace SmartXmlSql.statements
 {
 
     /// <summary>
@@ -36,7 +36,7 @@ namespace SmartXmlSql
         public IList<ITag> Tags { get; set; }
 
         public IList<ITag> Child { get; set; }
-   
+
         public string Key { get; set; }
 
         public string DB { get; set; }
@@ -44,6 +44,6 @@ namespace SmartXmlSql
         public AcessType Acess { get; set; }
 
         //准备扩展的字段
-        public  SqlContext SqlContext { get; set; }
+        public SqlContext SqlContext { get; set; }
     }
 }

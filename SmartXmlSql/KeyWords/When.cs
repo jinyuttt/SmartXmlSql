@@ -21,6 +21,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using SmartXmlSql.statements;
+
 namespace SmartXmlSql
 {
     public class When : Tag

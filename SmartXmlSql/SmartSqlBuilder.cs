@@ -22,9 +22,15 @@ using System.Text;
 using System.Xml;
 using System.Collections.Concurrent;
 using System.IO;
+using SmartXmlSql.statements;
+using SmartXmlSql.Cache;
 
 namespace SmartXmlSql
 {
+
+    /// <summary>
+    /// 输出SQL和参数
+    /// </summary>
     public class SmartSqlBuilder : IDisposable
     {
         /// <summary>
@@ -68,6 +74,7 @@ namespace SmartXmlSql
                 throw ex;
             }
 
+            //BuildSql使用
             statement.SqlContext = new SqlContext() { Context = obj };
             foreach (var tag in statement.Child)
             {
@@ -77,6 +84,7 @@ namespace SmartXmlSql
             StringBuilder builder = new StringBuilder();
             foreach (var tag in statement.Child)
             {
+               //所以节点组合
                 builder.Append(tag.GetSql());
             }
 
@@ -85,7 +93,7 @@ namespace SmartXmlSql
         }
 
         /// <summary>
-        /// 获取配置信息
+        /// 获取配置信息，生成语句
         /// </summary>
         /// <param name="xml">文件</param>
         /// <param name="name">节点</param>

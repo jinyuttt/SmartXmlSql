@@ -16,20 +16,18 @@
 #endregion
 
 
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartXmlSql
+namespace SmartXmlSql.statements
 {
+    /// <summary>
+    /// SQL语句非参数(update XXX,select XXX)
+    /// </summary>
     public class SqlText : Tag
     {
 
         public override string GetSql()
         {
-            string tmp= base.GetSql();
-            return this.Sql + tmp;
+            string tmp = base.GetSql();
+            return Sql + tmp;
         }
 
 

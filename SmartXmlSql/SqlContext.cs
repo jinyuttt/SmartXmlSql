@@ -16,14 +16,12 @@
 #endregion
 
 
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace SmartXmlSql
 {
-   public class SqlContext
+    /// <summary>
+    /// 实体对象
+    /// </summary>
+    internal class SqlContext
     {
        
         

@@ -16,6 +16,8 @@
 #endregion
 
 using System.Linq;
+using SmartXmlSql.statements;
+
 namespace SmartXmlSql
 {
     public class Choose : Tag

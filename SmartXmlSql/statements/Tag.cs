@@ -22,13 +22,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SmartXmlSql
+namespace SmartXmlSql.statements
 {
     public abstract class Tag : ITag
     {
         readonly StringBuilder builder = new StringBuilder();
-        public virtual String Prepend { get; set; }
-        public String Property { get; set; }
+        public virtual string Prepend { get; set; }
+        public string Property { get; set; }
         /// <summary>
         ///  验证属性是否存在，如果不存在则抛出异常 : TagRequiredFailException
         /// </summary>
@@ -36,21 +36,21 @@ namespace SmartXmlSql
         public List<ITag> ChildTags { get; set; }
         public ITag Parent { get; set; }
         public Statement Statement { get; set; }
-        public string Sql { get ; set ; }
+        public string Sql { get; set; }
 
-        public  virtual void BuildSql()
+        public virtual void BuildSql()
         {
             builder.Clear();
             //查找子节点有没有值
             if (ChildTags == null)
             {
-                var kk = this.Statement.Tags.Where(X => X.Parent == this);
+                var kk = Statement.Tags.Where(X => X.Parent == this);
                 ChildTags = new List<ITag>();
                 foreach (ITag tag in kk)
                 {
                     ChildTags.Add(tag);
                 }
-                foreach (var tag in this.ChildTags)
+                foreach (var tag in ChildTags)
                 {
                     tag.BuildSql();
                     builder.Append(tag.GetSql());
@@ -59,7 +59,7 @@ namespace SmartXmlSql
             }
             else
             {
-                foreach (var tag in this.ChildTags)
+                foreach (var tag in ChildTags)
                 {
                     tag.BuildSql();
                     builder.Append(tag.GetSql());
@@ -70,7 +70,7 @@ namespace SmartXmlSql
 
         public virtual string GetSql()
         {
-            return this.Prepend+ builder.ToString();
+            return Prepend + builder.ToString();
         }
     }
 }

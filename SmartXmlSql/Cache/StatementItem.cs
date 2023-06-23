@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using SmartXmlSql.statements;
 using System;
 
-namespace SmartXmlSql
+namespace SmartXmlSql.Cache
 {
 
     /// <summary>
@@ -10,11 +11,11 @@ namespace SmartXmlSql
     public class StatementItem
     {
         private readonly MemoryCache Cache = null;
-      
+
         public StatementItem()
         {
             //设置元素过期扫描时间
-            Cache = new MemoryCache(new MemoryCacheOptions() {  ExpirationScanFrequency= TimeSpan.FromMinutes(5)});
+            Cache = new MemoryCache(new MemoryCacheOptions() { ExpirationScanFrequency = TimeSpan.FromMinutes(5) });
         }
 
         /// <summary>
@@ -22,11 +23,13 @@ namespace SmartXmlSql
         /// </summary>
         /// <param name="key"></param>
         /// <param name="statement"></param>
-        public void Set(string key,Statement statement)
+        public void Set(string key, Statement statement)
         {
             //设置缓存并且15分钟没有使用过期
-             Cache.Set(key, statement,new MemoryCacheEntryOptions { 
-             SlidingExpiration=TimeSpan.FromMinutes(15)} );
+            Cache.Set(key, statement, new MemoryCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromMinutes(15)
+            });
         }
 
         /// <summary>
@@ -34,9 +37,9 @@ namespace SmartXmlSql
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public  Statement GetStatement(string key)
+        public Statement GetStatement(string key)
         {
-           return Cache.Get<Statement>(key);
+            return Cache.Get<Statement>(key);
         }
 
     }

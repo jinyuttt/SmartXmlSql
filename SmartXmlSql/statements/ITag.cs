@@ -16,7 +16,7 @@
 #endregion
 
 
-namespace SmartXmlSql
+namespace SmartXmlSql.statements
 {
     /// <summary>
     /// 表示一个sql语句节点
@@ -37,14 +37,14 @@ namespace SmartXmlSql
         /// <summary>
         /// SQL语句
         /// </summary>
-         string Sql { get; set; }
+        string Sql { get; set; }
 
         /// <summary>
         /// 预置词
         /// </summary>
-         string Prepend { get; set; }
+        string Prepend { get; set; }
 
-     
+
         /// <summary>
         /// 输出语句
         /// </summary>

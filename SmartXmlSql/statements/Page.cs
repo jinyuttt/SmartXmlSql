@@ -20,6 +20,7 @@
 
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using SmartXmlSql.statements;
 
 namespace SmartXmlSql
 {
