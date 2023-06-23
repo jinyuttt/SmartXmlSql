@@ -13,8 +13,9 @@ namespace SmartXmlSql
 
     /// <summary>
     /// SQL处理器
+    /// SmartSqlBuilder+缓存
     /// </summary>
-    public  class SqlGenerator
+    public class SqlGenerator
     {
         readonly SmartSqlBuilder smartSql = new SmartSqlBuilder();
         private static readonly Lazy<SqlGenerator> generator = new Lazy<SqlGenerator>();
@@ -351,7 +352,7 @@ namespace SmartXmlSql
         }
          
         /// <summary>
-        /// SQL参数
+        /// 提取SQL参数
         /// </summary>
         /// <param name="sql"></param>
         /// <returns></returns>

@@ -30,8 +30,9 @@ namespace SmartXmlSql
 
     /// <summary>
     /// 输出SQL和参数
+    /// 处理XML
     /// </summary>
-    public class SmartSqlBuilder : IDisposable
+    internal class SmartSqlBuilder : IDisposable
     {
         /// <summary>
         /// xml文件内容

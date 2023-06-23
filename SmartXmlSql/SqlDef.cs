@@ -21,7 +21,7 @@ namespace SmartXmlSql
     /// <summary>
     /// 解析的SQL
     /// </summary>
-    public class SqlDef
+    internal class SqlDef
     {
 
         /// <summary>

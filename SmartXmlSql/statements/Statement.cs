@@ -44,6 +44,6 @@ namespace SmartXmlSql.statements
         public AcessType Acess { get; set; }
 
         //准备扩展的字段
-        public SqlContext SqlContext { get; set; }
+        internal SqlContext SqlContext { get; set; }
     }
 }
