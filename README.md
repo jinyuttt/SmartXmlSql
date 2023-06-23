@@ -47,4 +47,13 @@ SmartXmlSqlMaper.xsd 提示xml关键字
 | Page      | 使用分页        | 该节点必须包含pagesize,pagenum这2个变量表达式                |                                                              | (pagenum-1)*pageSize                                    |
 |           |                 |                                                              |                                                              |                                                         |
 
+-------------------------------------
 
+### Key说明
+
+|   名称              | 使用                                                         |配置的替换SQL形如                                             
+| ------------------  | ------------------------------------------------------------ | ------------------------------------------------------------ 
+| Entity              |  用实体全部属性生成SQL                                       | insert into kk (<$p>) values(@p) 
+| Array               |  生成in的部分，方法传入数组                                  | select * from XX where id in(<$p>) 
+| List                | 生成批量SQL语句，需要配置插入SQL的字段和参数                 | insert into XX(XXX,XXX,XXX)values(<$YYY>,<$YYY>,<$YYY>)    
+| Batch               | 生成批量语句，此时会用实体的全部属性生成                     | insert into kk (<$p>) values(@p)                         
