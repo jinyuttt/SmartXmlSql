@@ -8,7 +8,7 @@ SqlGenerator.Instance.Builder()；
 SqlGenerator.Instance.Builder(new Person)；传入参数值
 
 -----------------------------
-生成实体代码   
+生成实体代码，如果要按照数据库表生成实体，需要自己编写类似代码，因为每个数据库获取表信息不同，目前没有适配。
 
             var ss = new TableInfo() { TableName = "stud" };  
             ss.ColumnInfos.Add(new ColumnInfo() { ColumnName = "id", ColumnType = typeof(int), Description = "编号" });  
@@ -19,8 +19,9 @@ SqlGenerator.Instance.Builder(new Person)；传入参数值
             lst.Add(ss);  
             DBCodeUtil.CreateDBEntity(lst,"mytest","");  
 
-              DataSet ds = new DataSet();  
+            DataSet ds = new DataSet();  
             DBCodeUtil.CreateDBEntity(ds, "mytest", "");  
+           //DBCodeUtil内部使用DBCodeEntity
 
 -------------------------------
 增加扩展方法，实现参数简单转换  

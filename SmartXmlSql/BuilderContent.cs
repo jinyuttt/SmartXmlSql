@@ -28,6 +28,9 @@ namespace SmartXmlSql
         public string DataType { get; set; }
     }
 
+    /// <summary>
+    /// 转换参数类型
+    /// </summary>
 
     public static  class ExpandMethod
     {

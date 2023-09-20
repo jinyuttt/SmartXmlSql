@@ -9,7 +9,7 @@ namespace SmartXmlSql.Entitys
     public class DBCodeEntity
     {
         /// <summary>
-        /// 生成实体代码
+        /// 生成实体代码，动态编译的方式
         /// </summary>
         /// <param name="tableInfo">表信息</param>
         /// <param name="filePath">路径</param>

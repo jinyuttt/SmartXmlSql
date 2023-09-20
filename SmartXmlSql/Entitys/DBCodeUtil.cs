@@ -30,7 +30,7 @@ namespace SmartXmlSql.Entitys
            
         }
         /// <summary>
-        /// 
+        /// 通过DataSet创建代码
         /// </summary>
         /// <param name="ds">数据库表信息</param>
         /// <param name="clsNameSpace">名称空间</param>

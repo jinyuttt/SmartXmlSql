@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartXmlSql
 {
     internal class CodeUtil
     {
         /// <summary>
-        /// 创建类代码文件
+        /// 创建类代码文件，拼凑字符串方式（不建议使用，优先使用DBCodeUtil）
         /// </summary>
         /// <param name="tableInfo"></param>
         /// <param name="filePath">类代码文件存放路径</param>
