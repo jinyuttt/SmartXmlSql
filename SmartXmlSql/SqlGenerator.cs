@@ -64,7 +64,7 @@ namespace SmartXmlSql
 
             sql.SQL = SQLRegular(sql.SQL);
             //SQL参数提取
-            Dictionary<string, SqlValue> dic = new Dictionary<string, SqlValue>();
+            Dictionary<string, SqlValue> dic = new();
 
             //参数是类并且不需要生成in或者批量SQL
             if (args.Length == 1 && args[0].GetType().IsClass && args[0].GetType() != typeof(string) && sql.Key != "List" && sql.Key != "Batch" && sql.Key != "Array")
@@ -80,7 +80,7 @@ namespace SmartXmlSql
             {
                 if (sql.Key != "List" && sql.Key != "Batch"&& sql.Key != "Entity"&& sql.Key != "Array")
                 {
-                    string strKey = string.Join("-", mth.ReflectedType.FullName, mth.Name);
+                    string strKey = string.Join("-", mth.ReflectedType.Name, mth.Name);
                     var lstKV = this.GetMthParam(strKey);
                     if (lstKV == null)
                     {
@@ -90,7 +90,13 @@ namespace SmartXmlSql
                         for (int i = 0; i < parameters.Length; i++)
                         {
                             var p = parameters[i];
-                            SqlValue value = new SqlValue() { DataType = p.ParameterType.FullName, Value = args[i].ToString() };
+                            SqlValue value = new SqlValue() { DataType = p.ParameterType.Name, Value = args[i] };
+                            if (p.ParameterType.FullName== null)
+                            {
+                                //说明是泛型;
+                                value.DataType = args[i].GetType().Name; 
+
+                            }
                             dic["@" + p.Name.ToLower()] = value;
                             lst.Add(new SqlKV() { Key = "@" + p.Name.ToLower(), Value = value });
                         }
@@ -305,12 +311,12 @@ namespace SmartXmlSql
                     if (dic.TryGetValue(key, out value))
                     {
                         //替换同名参数
-                        sql.SQL = sql.SQL.Replace(p.Substring(1), value.Value);
+                        sql.SQL = sql.SQL.Replace(p.Substring(1), value.Value.ToString());
                     }
                 }
             }
             //按照SQL参数输出
-            Dictionary<string, SqlValue> dicParam = new Dictionary<string, SqlValue>();
+            Dictionary<string, SqlValue> dicParam = new();
             foreach (var p in sqlPi)
             {
                 SqlValue value = null;

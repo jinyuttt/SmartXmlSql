@@ -23,7 +23,7 @@ namespace SmartXmlSql
     /// </summary>
     public class SqlValue
     {
-        public string Value { get; set; }
+        public object Value { get; set; }
 
         public string DataType { get; set; }
     }

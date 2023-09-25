@@ -1,10 +1,9 @@
-﻿using SmartXmlSql;
+﻿using Hikari;
+using SmartXmlSql;
 using SmartXmlSql.Entitys;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Reflection;
-using System.Reflection.Emit;
 
 namespace ConsoleApp1
 {
@@ -12,12 +11,24 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            HariCode hariCode = new HariCode();
-            hariCode.Create("");
-           // TestCls();
+
+                TestCls testCls = new TestCls();
+           var sql= testCls.QueryStuById(34);
+            HikariConfig hikariConfig = new HikariConfig();
+            hikariConfig.DBType = "PostgreSQL";
+            hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 123456; Database = postgres;Pooling=true; ";
+            //hikariConfig.DriverDir = "DBDrivers";
+            //hikariConfig.DriverDLL = "XXXX.dll";
+            //hikariConfig.DBTypeXml = "DBType.xml";
+            HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+            var ds = hikariDataSource.ExecuteQuery(sql.Sql, sql.SqlParam);
+             Console.WriteLine(ds.Tables[0].ToString());
+            //  HariCode hariCode = new HariCode();
+            //  hariCode.Create("");
+            //  TestCls();
             //long tskid = 3;
-             Dictionary<string,SqlValue> dicSql = new Dictionary<string,SqlValue>();
-             Dictionary<string,object> obj=  dicSql.ToObjectParam();
+            //   Dictionary<string,SqlValue> dicSql = new Dictionary<string,SqlValue>();
+            //     Dictionary<string,object> obj=  dicSql.ToObjectParam();
             //Test(tskid);
             //for (int i = 0; i < 1000; i++)
             //{

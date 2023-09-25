@@ -92,16 +92,21 @@ namespace SmartXmlSql
                     generator.Emit(OpCodes.Unbox_Any, property.PropertyType);
 
                 }
-                else
+                else if (property.PropertyType.IsValueType)
                 {
-                    var cur = Nullable.GetUnderlyingType(property.PropertyType);
-                    if (cur == null)
-                    {
-                        cur = property.PropertyType;
-                    }
-                    generator.Emit(OpCodes.Call, ConvertMethods[cur]);//调用强转方法赋值
-
+                    //转换装箱
+                    generator.Emit(OpCodes.Box, property.PropertyType);
                 }
+                //else
+                //{
+                //    var cur = Nullable.GetUnderlyingType(property.PropertyType);
+                //    if (cur == null)
+                //    {
+                //        cur = property.PropertyType;
+                //    }
+                //      generator.Emit(OpCodes.Call, ConvertMethods[cur]);//调用强转方法赋值
+
+                //}
 
                 generator.Emit(OpCodes.Call, typeof(SqlValue).GetProperty("Value").GetSetMethod());//
                 generator.Emit(OpCodes.Call, typeof(Dictionary<string, SqlValue>).GetMethod("set_Item"));//

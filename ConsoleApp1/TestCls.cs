@@ -40,9 +40,10 @@ namespace ConsoleApp1
         {
             var slq = SqlGenerator.Instance.Builder(oj);
         }
-        public void QueryStuById<T>(T id)
+        public BuilderContent QueryStuById<T>(T id)
         {
             var slq = SqlGenerator.Instance.Builder(id);
+            return slq;
         }
 
         public void QueryStuByName<T>(T name)
