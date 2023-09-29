@@ -24,6 +24,25 @@ SqlGenerator.Instance.Builder(new Person)；传入参数值
            //DBCodeUtil内部使用DBCodeEntity
 
 -------------------------------
+升级代码生成
+BuilderFactory 生成适配的数据库，MySql,PostgreSQL,内部名称是组合的;
+没有适配的数据库可以使用DBEntiyBuilder实例对象生成；
+DBEntiyBuilder是对DBCodeUtil数据库的封装使用，底层还是DBCodeUtil；
+后续会适配更多数据库。
+
+
+
+             HikariConfig hikariConfig = new HikariConfig();
+             hikariConfig.DBType = "PostgreSQL";
+             hikariConfig.ConnectString = "Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = 123456; Database = postgres;Pooling=true; ";
+          
+            HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+            var connection1 = hikariDataSource.GetConnection();
+            BuilderFactory.DbConnection=connection1;
+            BuilderFactory.DbDataAdapter = hikariDataSource.DataAdapter;
+            BuilderFactory.Create("PostgreSQL");
+
+-------------------------------
 增加扩展方法，实现参数简单转换  
  Dictionary<string,SqlValue> dicSql = new Dictionary<string,SqlValue>();  
              Dictionary<string,object> obj=  dicSql.ToObjectParam();  

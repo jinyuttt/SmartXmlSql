@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="EntityMappingDB" Version="1.4.7" />
-    <PackageReference Include="Hikari" Version="2.9.8" />
+    <PackageReference Include="Hikari" Version="2.9.9" />
   </ItemGroup>
 
   <ItemGroup>

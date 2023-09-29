@@ -66,7 +66,9 @@ namespace SmartXmlSql.Entitys
                     table.ColumnInfos.Add(new ColumnInfo() { ColumnName = col.ColumnName, ColumnType = col.DataType, Description = cur });
 
                 }
-                
+                string first = table.TableName.Substring(0, 1).ToUpper();
+                string last = table.TableName.Substring(1);
+                table.TableName = first + last;
                 string outFile = Path.Combine(dir, table.TableName + ".cs");
                 DBCodeEntity.CreateCodeFile(table, outFile, table.TableName, clsNameSpace);
             }

@@ -1,5 +1,7 @@
 ﻿using System.CodeDom;
 using System.CodeDom.Compiler;
+using System.Diagnostics;
+using System.IO;
 
 namespace SmartXmlSql.Entitys
 {
@@ -32,6 +34,7 @@ namespace SmartXmlSql.Entitys
             if (string.IsNullOrEmpty(codeClassName))
             {
                 codeClassName = tableInfo.TableName;
+             
             }
             CodeTypeDeclaration myClass = new CodeTypeDeclaration(codeClassName);
           
@@ -73,10 +76,30 @@ namespace SmartXmlSql.Entitys
             CodeGeneratorOptions options = new CodeGeneratorOptions();
             options.BracingStyle = "C";
             options.BlankLinesBetweenMembers = true;
+
+            //using (IndentedTextWriter tw = new IndentedTextWriter(new StreamWriter(filePath, false), ""))
+            //{
+            //    provider.GenerateCodeFromCompileUnit(compileUnit, tw, options);
+            //}
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath))
             {
                 provider.GenerateCodeFromCompileUnit(compileUnit, sw, options);
+                // provider.GenerateCodeFromType(myClass, sw, options); //生成类
             }
+            //CompilerParameters compilerParams = new CompilerParameters();
+            ////指定编译选项，是类库
+            //compilerParams.CompilerOptions = "/target:library /optimize";
+            ////不生成执行文件
+            //compilerParams.GenerateExecutable = false;
+            ////在内存中生成输出
+            //compilerParams.GenerateInMemory = true;
+            ////不包含调试信息
+            //compilerParams.IncludeDebugInformation = false;
+            //// 调用编译器
+            //CompilerResults cr = provider.CompileAssemblyFromFile(cp, sourceFile);
+
+            //// 返回编译结果
+
         }
     }
 }
